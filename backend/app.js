@@ -13,6 +13,7 @@ const cookieParser = require('cookie-parser');
 const errorHandler=require('./middleware/error')
 const authRoutes=require('./routes/authRoutes')
 const userRoutes=require('./routes/userRoutes')
+const jobTypeRoutes=require('./routes/jobTypeRoutes')
 //MIDDLEWARE
 app.use(morgan("dev"));
 app.use(bodyParser.json({limit:"5mb"}));
@@ -28,6 +29,7 @@ app.use(cors());
 
 app.use('/api', authRoutes)
 app.use('/api', userRoutes)
+app.use('/api', jobTypeRoutes)
 //error middleware
 app.use(errorHandler)
 //Database Connection

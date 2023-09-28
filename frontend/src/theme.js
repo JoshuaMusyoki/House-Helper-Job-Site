@@ -8,7 +8,7 @@ export const theme=createTheme({
         },
         secondary:{
             main:lightBlue[800],
-            midNightBlue:'0003306'
+            midNightBlue:'003306'
         }
     }
 })
