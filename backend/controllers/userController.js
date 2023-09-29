@@ -51,13 +51,41 @@ exports.editUser=async(req, res, next)=>{
     }
 }
 
-///delete user
+//delete user
 exports.deleteUser=async(req, res, next)=>{
     try {
         const user=await User.findByIdAndRemove(req.params.id);
         res.status(200).json({
             success:true,
             message:"user deleted"
+        })
+    } catch (error) {
+        return next(error);
+    }
+}
+
+//create job History
+exports.createUserJobHistory=async(req, res, next)=>{
+    const {title, description, salary, location}=req.body;
+
+    try {
+        const currentUser=await User.findOne({_id:req.user._id});
+        if(!currentUser){
+            return next(new errorResponse("You must be Logged In", 401));
+        }else{
+            const addJobHistory={
+                title,
+                description,
+                salary,
+                location,
+                user: req.user._id
+            }
+            currentUser.jobsHistory.push(addJobHistory);
+            await currentUser.save();
+        }
+        res.status(200).json({
+            success:true,
+            currentUser
         })
     } catch (error) {
         return next(error);

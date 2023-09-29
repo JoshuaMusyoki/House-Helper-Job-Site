@@ -15,6 +15,6 @@ router.get('/type/jobs', allJobsType)
 router.get('/job/type/update/type_id',isAuthenticated,isAdmin, updateJobType)
 
 //api/job/type/delete/type_id
-router.get('/job/type/delete/type_id',isAuthenticated,isAdmin, deleteJobType)
+router.delete('/job/type/delete/type_id',isAuthenticated,isAdmin, deleteJobType)
 
 module.exports=router;
