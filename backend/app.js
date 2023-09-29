@@ -14,6 +14,7 @@ const errorHandler=require('./middleware/error')
 const authRoutes=require('./routes/authRoutes')
 const userRoutes=require('./routes/userRoutes')
 const jobTypeRoutes=require('./routes/jobTypeRoutes');
+const jobRoute=require('./routes/jobsRoutes');
 //MIDDLEWARE
 app.use(morgan("dev"));
 app.use(bodyParser.json({limit:"5mb"}));
@@ -30,7 +31,7 @@ app.use(cors());
 app.use('/api', authRoutes)
 app.use('/api', userRoutes)
 app.use('/api', jobTypeRoutes)
-
+app.use('/api', jobRoute)
 //error middleware
 app.use(errorHandler)
 //Database Connection

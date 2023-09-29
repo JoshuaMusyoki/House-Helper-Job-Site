@@ -1,7 +1,9 @@
+const { set } = require('mongoose');
 const Job=require('../models/jobModels');
+const jobType=require('../models/jobTypeModel');
 const ErrorResponse=require('../utils/errorResponse');
 
-//create job category
+//create job 
 
 exports.createJob=async(req, res, next)=>{
     try {
@@ -16,6 +18,86 @@ exports.createJob=async(req, res, next)=>{
         res.status(201).json({
             success:true,
             job
+        })
+    } catch (error) {
+        next(error);
+    }
+}
+
+//single job 
+
+exports.singleJob=async(req, res, next)=>{
+    try {
+        const job =await Job.findById(req.params.id);
+        res.status(200).json({
+            success:true,
+            job
+        })
+    } catch (error) {
+        next(error);
+    }
+}
+
+//update job by id
+
+exports.updateJob=async(req, res, next)=>{
+    try {
+        const job =await Job.findByIdAndUpdate(req.params.job_id, req.body, {new:true}).populate('jobType', 'jobTypeName').populate('user','firstName lastName');
+        res.status(200).json({
+            success:true,
+            job
+        })
+    } catch (error) {
+        next(error);
+    }
+}
+//show jobs
+
+exports.showJob=async(req, res, next)=>{
+
+    //enable search
+    const  keyword=req.query.keyword ?{
+        title:{
+            $regex:req.query.keyword,
+            $options:"i"
+        }
+    }:{}
+
+    //filter jobs by category ids
+    let ids = [];
+    const jobTypeCategory=await jobType.find({},{_id:1});
+    jobTypeCategory.forEach(cat => {
+        ids.push(cat._id) 
+    });
+    let cat=req.query.cat;
+    let categ=cat !=='' ? cat:ids
+
+    //jobs by locations
+    let locations=[];
+    const jobByLocation= await job.find({}, {location:1});
+    jobByLocation.forEach(val=>{
+       locations.push(val.location)
+    });
+    let setUniqueLocation=[...new Set(locations)];
+    let location=req.query.location;
+    let locationFilter=location !== '' ? location:setUniqueLocation;
+
+    //enable pagination
+    const pageSize=5;
+    const page=Number(req.query.pageNumber)||1
+    // const count=await User.find({}).estimatedDocumentCount();
+    const count=await User.find({...keyword, jobType:categ, location:locationFilter}).countDocument();
+    try {
+        const jobs =await Job.find({...keyword, jobType:categ, location:locationFilter}).skip(pageSize * (page-1)).limit(pageSize);
+        res.status(200).json({
+            success:true,
+            jobs,
+            page,
+            pages:Math.ceil(count/pageSize),
+            count,
+            ids,
+            setUniqueLocation
+
         })
     } catch (error) {
         next(error);
