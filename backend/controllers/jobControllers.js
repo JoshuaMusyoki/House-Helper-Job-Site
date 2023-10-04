@@ -74,7 +74,7 @@ exports.showJob=async(req, res, next)=>{
 
     //jobs by locations
     let locations=[];
-    const jobByLocation= await job.find({}, {location:1});
+    const jobByLocation= await Job.find({}, {location:1});
     jobByLocation.forEach(val=>{
        locations.push(val.location)
     });
@@ -84,9 +84,10 @@ exports.showJob=async(req, res, next)=>{
 
     //enable pagination
     const pageSize=5;
-    const page=Number(req.query.pageNumber)||1
+    const page=Number(req.query.pageNumber)||1;
     // const count=await User.find({}).estimatedDocumentCount();
-    const count=await User.find({...keyword, jobType:categ, location:locationFilter}).countDocument();
+    const count=await Job.find({...keyword, jobType: categ, location: locationFilter}).countDocuments();
+    
     try {
         const jobs =await Job.find({...keyword, jobType:categ, location:locationFilter}).sort({createdAt: -1}).skip(pageSize * (page-1)).limit(pageSize);
         res.status(200).json({

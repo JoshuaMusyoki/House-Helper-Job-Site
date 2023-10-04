@@ -7,7 +7,7 @@ import { loadJobTypeReducer } from './reducers/jobTypeReducers';
 //combine reducers
 const reducers= combineReducers({
     loadJobs:loadJobReducer,
-    jobType:loadJobTypeReducer
+    jobTypeAll:loadJobTypeReducer
 });
 
 //initial state

@@ -19,8 +19,8 @@ const Home = () => {
   const dispatch =useDispatch();
   const {keyword, location}=useParams();
 
-  const {page, setPage}=useState(1);
-  const {cat, setCat}=React.useState('');
+  const [page, setPage]=useState(1);
+  const [cat, setCat]=React.useState('');
 
   useEffect(()=>{
     dispatch(jobLoadAction(page,cat, keyword, location))
@@ -51,10 +51,10 @@ const Home = () => {
               Filter Job by Category
             </Typography>
           </Box>
-          {/* <SelectComponent handleChangeCategory={handleChangeCategory} cat={cat}/> */}
+          <SelectComponent handleChangeCategory={handleChangeCategory} cat={cat}/>
         </Card>
-        </Box>
-        <Box sx={{flex:2, p:2}}>
+       
+        {/* Filter jobs by location */}
           <Card sx={{minWidth:150, mb:3, mt:3, p:2}}>
             <Box sx={{pb:2}}>
               <Typography component="h4" sx={{color:palette.secondary.main, fontWeight:600}}>
@@ -81,7 +81,7 @@ const Home = () => {
           {
             loading ?
             <LoadingBox />:
-            jobs &&jobs.length == 0 ?
+            jobs&&jobs.length == 0 ?
             <>
             <Box 
             sx={{

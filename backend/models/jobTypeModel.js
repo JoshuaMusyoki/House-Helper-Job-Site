@@ -1,7 +1,7 @@
 const mongoose=require('mongoose')
 const {ObjectId}=mongoose.Schema
 const jobTypeSchema= new mongoose.Schema({
-    jobType:{
+    jobTypeName:{
         type:String,
         trim:true,
         required:[true, 'Job category is required'],

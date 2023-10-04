@@ -1,11 +1,11 @@
-const JobType=require('../models/jobTypeModel');
+const jobType=require('../models/jobTypeModel');
 const ErrorResponse=require('../utils/errorResponse');
 
 //create job category
 
 exports.createJobType=async(req, res, next)=>{
     try {
-        const jobT=await JobType.create({
+        const jobT=await jobType.create({
             jobTypeName:req.body.jobTypeName, 
             user:req.user.id
         });
@@ -22,7 +22,7 @@ exports.createJobType=async(req, res, next)=>{
 
 exports.allJobsType=async(req, res, next)=>{
     try {
-        const jobT=await JobType.find();
+        const jobT=await jobType.find();
         res.status(200).json({
             success:true,
             jobT
@@ -36,7 +36,7 @@ exports.allJobsType=async(req, res, next)=>{
 
 exports.updateJobType=async(req, res, next)=>{
     try {
-        const jobT=await JobType.findByIdAndUpdate(req.params.type_id, req.body, {new:true});
+        const jobT=await jobType.findByIdAndUpdate(req.params.type_id, req.body, {new:true});
         res.status(200).json({
             success:true,
             jobT
@@ -50,7 +50,7 @@ exports.updateJobType=async(req, res, next)=>{
 
 exports.deleteJobType=async(req, res, next)=>{
     try {
-        const jobT=await JobType.findByIdAndRemove(req.params.type_id);
+        const jobT=await jobType.findByIdAndRemove(req.params.type_id);
         res.status(200).json({
             success:true,
             message:'job type deleted'
