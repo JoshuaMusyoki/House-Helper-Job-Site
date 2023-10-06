@@ -12,9 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import Login from '../pages/Login';
 
 const pages = ['Jobs', 'Candidates', 'Agency Services'];
-const account=['Login', 'Register']
+const account=[Login]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
@@ -45,7 +46,7 @@ function Navbar() {
             variant="h6"
             noWrap
             component="a"
-            href="#Home"
+            href="Home"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -169,7 +170,7 @@ function Navbar() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="Login"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
