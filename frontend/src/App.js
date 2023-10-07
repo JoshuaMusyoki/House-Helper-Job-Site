@@ -24,7 +24,7 @@ const App=()=>{
     <Route path='/search/:keyword' element={<Home/>} />
     <Route path='/Login' element={<Login />} />
     <Route path='/user/UserDashboard' element={<UserRoutes><UserDashboard /></UserRoutes>} />
-   <Route path='#' element={<NotFound />}/>
+   <Route path='*' element={<NotFound />}/>
    </Routes>
    </BrowserRouter>
     </ThemeProvider>
