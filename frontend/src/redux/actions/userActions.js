@@ -21,3 +21,6 @@ export const userSignInAction=(user)=>async(dispatch)=>{
         toast.error(error.response.data.error);
     }
 }
+export const userLogoutAction=(user)=>async(dispatch)=>{
+    
+}

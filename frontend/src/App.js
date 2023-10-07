@@ -8,6 +8,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from './theme';
 import Login from './pages/Login';
 import UserDashboard from './pages/user/UserDashboard';
+import UserRoutes from './components/UserRoutes';
 
 
 const App=()=>{
@@ -22,7 +23,7 @@ const App=()=>{
     <Route path='/search/location/:location' element={<Home/>} />
     <Route path='/search/:keyword' element={<Home/>} />
     <Route path='/Login' element={<Login />} />
-    <Route path='/user/UserDashboard' element={<UserDashboard />} />
+    <Route path='/user/UserDashboard' element={<UserRoutes><UserDashboard /></UserRoutes>} />
    <Route path='#' element={<NotFound />}/>
    </Routes>
    </BrowserRouter>

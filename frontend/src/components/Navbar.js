@@ -15,7 +15,8 @@ import WorkIcon from '@mui/icons-material/Work';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { userLogoutAction } from '../redux/actions/userAction';
+import { userLogoutAction } from '../redux/actions/userActions';
+
 
 const pages = ['Home', 'Log In' ];
 
@@ -47,7 +48,7 @@ const Navbar = () => {
 
     // log out user
     const logOutUser = () => {
-        // dispatch(userLogoutAction());
+        dispatch(userLogoutAction());
         window.location.reload(true);
         setTimeout(() => {
             navigate('/');
@@ -77,7 +78,7 @@ const Navbar = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        JOB PORTAL
+                        JOB_PORTAL
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -133,7 +134,7 @@ const Navbar = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        JOB PORTAL
+                        JOB_PORTAL
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {/* menu desktop */}
@@ -210,17 +211,22 @@ const Navbar = () => {
                                 <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.primary.main }} to="/admin/dashboard">Dashboard</Link></Typography>
                             </MenuItem>
 
-                            {
+                            
+                                {
                                 !userInfo ?
 
                                     <MenuItem onClick={handleCloseUserMenu}>
                                         <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.primary.main }} to="/Login">Log In</Link></Typography>
                                     </MenuItem> :
+                                    
 
-                                    <MenuItem onClick={logOutUser}>
+                                     <MenuItem onClick={logOutUser}>
                                         <Typography style={{ textDecoration: "none", color: palette.primary.main }} textAlign="center">Log Out</Typography>
-                                    </MenuItem>
-                            }
+                                    </MenuItem> 
+                                  }
+                            <MenuItem onClick={logOutUser}>
+                                <Typography style={{ textDecoration: "none", color: palette.primary.main }} textAlign="center">Log Out</Typography>
+                            </MenuItem>
 
 
                         </Menu>
