@@ -4,6 +4,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import { loadJobReducer} from './reducers/jobReducer';
 import { loadJobTypeReducer } from './reducers/jobTypeReducers';
 import { userReducerSignIn } from './reducers/useReducers';
+import { json } from 'react-router-dom';
 
 //combine reducers
 const reducers= combineReducers({
@@ -13,7 +14,11 @@ const reducers= combineReducers({
 });
 
 //initial state
-let initialState={};
+let initialState={
+    signIn:{
+        userInfo:localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')): null
+    }
+};
 const middleware=[thunk];
 const store=createStore(reducers, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 

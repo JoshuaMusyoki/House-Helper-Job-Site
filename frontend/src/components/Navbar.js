@@ -17,7 +17,7 @@ import { useTheme } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { userLogoutAction } from '../redux/actions/userAction';
 
-const pages = ['Home', 'Log In'];
+const pages = ['Home', 'Log In' ];
 
 
 const Navbar = () => {
@@ -146,7 +146,42 @@ const Navbar = () => {
                             </Link>
                         </Button>
 
+                  
+                        {/* Jobs */}
+
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}>
+                            <Link to="#" style={{ color: 'white', textDecoration: "none" }}>
+                                Jobs
+                            </Link>
+                        </Button>
+
+
+                        {/* Candidates */}
+
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}>
+                            <Link to="#" style={{ color: 'white', textDecoration: "none" }}>
+                                Candidates
+                            </Link>
+                        </Button>
+
                     </Box>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        {/* Register */}
+
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}>
+                            <Link to="/" style={{ color: 'white', textDecoration: "none" }}>
+                                Register
+                            </Link>
+                        </Button>
+                        </Box>
+                   
+
 
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
