@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from './theme';
+import Login from './pages/Login';
 
 
 const App=()=>{
@@ -19,6 +20,7 @@ const App=()=>{
     <Route path='/' element={<Home/>} />
     <Route path='/search/location/:location' element={<Home/>} />
     <Route path='/search/:keyword' element={<Home/>} />
+    <Route path='/Login' element={<Login />} />
    <Route path='#' element={<NotFound />}/>
    </Routes>
    </BrowserRouter>
