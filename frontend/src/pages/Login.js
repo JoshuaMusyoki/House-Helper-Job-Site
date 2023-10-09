@@ -30,7 +30,7 @@ const Login = () => {
     const { isAuthenticated } = useSelector(state => state.signIn);
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/user/dashboard');
+            navigate('/user/UserDashboard');
         }
     }, [isAuthenticated])
 

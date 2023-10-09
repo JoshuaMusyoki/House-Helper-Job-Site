@@ -1,6 +1,7 @@
 // import { Component } from "react";
 import SidebarAdm from './Sidebar';
 import { Box } from "@mui/material";
+import HeaderTop from './HeaderTop';
 const Layout=(Component)=>(({...props})=>{
     return(
         <>

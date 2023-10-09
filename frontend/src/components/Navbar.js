@@ -224,9 +224,7 @@ const Navbar = () => {
                                         <Typography style={{ textDecoration: "none", color: palette.primary.main }} textAlign="center">Log Out</Typography>
                                     </MenuItem> 
                                   }
-                            <MenuItem onClick={logOutUser}>
-                                <Typography style={{ textDecoration: "none", color: palette.primary.main }} textAlign="center">Log Out</Typography>
-                            </MenuItem>
+                           
 
 
                         </Menu>
