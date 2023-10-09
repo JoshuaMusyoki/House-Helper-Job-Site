@@ -76,7 +76,7 @@ const userSchema=mongoose.Schema({
         required:[true, 'password is required'],
         minLength:[6, 'password should not be less than (6) characters']
     },
-    jobHistory: [jobsHistorySchema],
+    jobsHistory: [jobsHistorySchema],
     role:{
         type:Number,
         default:0

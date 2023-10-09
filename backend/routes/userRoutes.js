@@ -14,11 +14,11 @@ router.get('/allUsers', isAuthenticated,isAdmin, allUsers);
 router.get('/user/:id', isAuthenticated, singleUser);
 
 //api/editUser/id
-router.get('/user/edit/:id', isAuthenticated, editUser);
+router.put('/user/edit/:id', isAuthenticated, editUser);
 
 //api/admin/user/delete/id
 router.delete('/admin/user/delete/:id', isAuthenticated, isAdmin, deleteUser);
 
 //api/user/jobHistory
-router.delete('/user/jobHistory', isAuthenticated, createUserJobHistory);
+router.post('/user/jobhistory', isAuthenticated, createUserJobHistory);
 module.exports = router;
