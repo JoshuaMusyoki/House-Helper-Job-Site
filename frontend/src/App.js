@@ -11,8 +11,10 @@ import UserDashboard from './pages/user/UserDashboard';
 import UserRoutes from './components/UserRoutes';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import Layout from './pages/global/Layout';
+import UserJobsHistory from './pages/user/UserJobsHistory';
 
-const UserDashboardHOC=Layout(UserDashboard)
+const UserDashboardHOC=Layout(UserDashboard);
+const UserJobsHistoryHOC = Layout(UserJobsHistory);
 const App=()=>{
   return(
     <>
@@ -27,6 +29,7 @@ const App=()=>{
     <Route path='/search/:keyword' element={<Home/>} />
     <Route path='/Login' element={<Login />} />
     <Route path='/user/UserDashboard' element={<UserRoutes><UserDashboardHOC /></UserRoutes>} />
+    <Route path='/user/jobs' element={<UserRoutes><UserJobsHistoryHOC /></UserRoutes>} />
    <Route path='*' element={<NotFound />}/>
    </Routes>
    </BrowserRouter>
