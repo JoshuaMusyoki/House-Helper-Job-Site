@@ -5,6 +5,7 @@ import StatComponent from '../../components/StatComponent'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import WorkIcon from '@mui/icons-material/Work'
 import { useSelector } from 'react-redux'
+import moment from 'moment'
 
 const UserDashboard = () => {
   const {user}=useSelector(state=>state.userProfile)
@@ -20,7 +21,7 @@ const UserDashboard = () => {
       >
 
       <StatComponent
-      value={user && user.createAt}
+      value={user && moment(user.createdAt).format('YYYY/ MM / DD')}
       icon={<CalendarMonthIcon sx={{color:"#fafafa", fontSize:30}}/>}
       description="Member Since"
       money=''
