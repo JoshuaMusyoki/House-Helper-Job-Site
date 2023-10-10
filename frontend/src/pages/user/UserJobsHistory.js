@@ -3,14 +3,14 @@ import { Box } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardElement from '../../components/cardElement'
-import { userProfileAction } from '../../redux/actions/userActions'
+// import { userProfileAction } from '../../redux/actions/userActions'
 
 const UserJobsHistory = () => {
     const { user } = useSelector(state => state.userProfile);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(userProfileAction());
-    }, []);
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     dispatch(userProfileAction());
+    // }, []);
 
     return (
         <>
