@@ -13,10 +13,13 @@ import { ProSidebarProvider } from 'react-pro-sidebar';
 import Layout from './pages/global/Layout';
 import UserJobsHistory from './pages/user/UserJobsHistory';
 import UserInfoDashboard from './pages/user/UserInfoDashboard';
+import EmployerDashboard from './pages/Employer/EmployerDashboard';
+import EmployerRoutes from './components/EmployerRoutes';
 
 const UserDashboardHOC=Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
 const UserInfoDashboardHOC=Layout(UserInfoDashboard)
+const EmployerDashboardHOC=Layout(EmployerDashboard)
 const App=()=>{
   return(
     <>
@@ -30,9 +33,10 @@ const App=()=>{
     <Route path='/search/location/:location' element={<Home/>} />
     <Route path='/search/:keyword' element={<Home/>} />
     <Route path='/Login' element={<Login />} />
-    <Route path='/user/UserDashboard' element={<UserRoutes><UserDashboardHOC /></UserRoutes>} />
-    <Route path='/user/jobs' element={<UserRoutes><UserJobsHistoryHOC /></UserRoutes>} />
-    <Route path='/user/info' element={<UserRoutes><UserInfoDashboardHOC /></UserRoutes>} />
+    <Route path='/employer/dashboard' element={<EmployerRoutes><EmployerDashboardHOC /></EmployerRoutes>} />
+    <Route path='/helper/dashboard' element={<UserRoutes><UserDashboardHOC /></UserRoutes>} />
+    <Route path='/helper/jobs' element={<UserRoutes><UserJobsHistoryHOC /></UserRoutes>} />
+    <Route path='/helper/info' element={<UserRoutes><UserInfoDashboardHOC /></UserRoutes>} />
    <Route path='*' element={<NotFound />}/>
    </Routes>
    </BrowserRouter>
