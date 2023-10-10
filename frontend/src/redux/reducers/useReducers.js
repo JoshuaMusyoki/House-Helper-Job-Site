@@ -1,4 +1,8 @@
 import { 
+    USER_APPLY_JOB_FAIL,
+    USER_APPLY_JOB_REQUEST,
+    USER_APPLY_JOB_RESET,
+    USER_APPLY_JOB_SUCCESS,
     USER_LOAD_FAIL, 
     USER_LOAD_REQUEST,
      USER_LOAD_RESET,
@@ -75,6 +79,30 @@ export const userReducerProfile=(state={}, action)=>{
             return{loading:false,user:null,  error:action.payload}
         
         case USER_LOAD_RESET:
+            return {}
+
+        default:
+            return state;
+    }
+}
+
+// apply for a job reducer
+export const userApplyForJobReducer=(state={}, action)=>{
+    switch (action.type) {
+        case USER_APPLY_JOB_REQUEST:
+            return {loading:true}
+            
+        case USER_APPLY_JOB_SUCCESS:
+            return{
+                loading:true,
+                userJob:action.payload
+               
+            }
+
+        case USER_APPLY_JOB_FAIL:
+            return{loading:true, error:action.payload}
+        
+        case USER_APPLY_JOB_RESET:
             return {}
 
         default:

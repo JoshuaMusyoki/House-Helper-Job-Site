@@ -15,6 +15,7 @@ import UserJobsHistory from './pages/user/UserJobsHistory';
 import UserInfoDashboard from './pages/user/UserInfoDashboard';
 import EmployerDashboard from './pages/Employer/EmployerDashboard';
 import EmployerRoutes from './components/EmployerRoutes';
+import SingleJob from './pages/SingleJob';
 
 const UserDashboardHOC=Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
@@ -33,6 +34,7 @@ const App=()=>{
     <Route path='/search/location/:location' element={<Home/>} />
     <Route path='/search/:keyword' element={<Home/>} />
     <Route path='/Login' element={<Login />} />
+    <Route path='/job/:id' element={<SingleJob />} />
     <Route path='/employer/dashboard' element={<EmployerRoutes><EmployerDashboardHOC /></EmployerRoutes>} />
     <Route path='/helper/dashboard' element={<UserRoutes><UserDashboardHOC /></UserRoutes>} />
     <Route path='/helper/jobs' element={<UserRoutes><UserJobsHistoryHOC /></UserRoutes>} />

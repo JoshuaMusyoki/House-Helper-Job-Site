@@ -47,7 +47,7 @@ export const loadJobSingleReducer=(state={job:{} }, action)=>{
             return{
                 loading:true,
                 success:action.payload.success,
-                singleJob:action.payload.singleJob,
+                singleJob:action.payload.job,
                 
 
             }  

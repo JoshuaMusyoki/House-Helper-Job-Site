@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import { loadJobReducer, loadJobSingleReducer} from './reducers/jobReducer';
 import { loadJobTypeReducer } from './reducers/jobTypeReducers';
-import { userReducerLogout, userReducerProfile, userReducerSignIn } from './reducers/useReducers';
+import { userApplyForJobReducer, userReducerLogout, userReducerProfile, userReducerSignIn } from './reducers/useReducers';
 import { json } from 'react-router-dom';
 
 //combine reducers
@@ -13,7 +13,8 @@ const reducers= combineReducers({
     signIn: userReducerSignIn,
     logOut: userReducerLogout,
     userProfile:userReducerProfile,
-    singleJob:loadJobSingleReducer
+    singleJob:loadJobSingleReducer,
+    userJobApplication:userApplyForJobReducer
 });
 
 //initial state

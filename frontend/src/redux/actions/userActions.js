@@ -1,6 +1,9 @@
 import axios from 'axios'
 import {toast} from 'react-toastify'
-import { USER_LOAD_FAIL,
+import { USER_APPLY_JOB_FAIL,
+     USER_APPLY_JOB_REQUEST, 
+     USER_APPLY_JOB_SUCCESS, 
+     USER_LOAD_FAIL,
      USER_LOAD_REQUEST, 
      USER_LOAD_SUCCESS,
       USER_LOGOUT_FAIL, 
@@ -63,5 +66,25 @@ export const userProfileAction=(user)=>async(dispatch)=>{
             payload:error.response.data.error
         });
        
+    }
+}
+
+//user apply job action
+export const userApplyJobAction=(job)=>async(dispatch)=>{
+    dispatch({type:USER_APPLY_JOB_REQUEST})
+    try {
+        const {data} = await axios.post("/api/user/jobhistory", job)
+        
+        dispatch({
+            type:USER_APPLY_JOB_SUCCESS,
+            payload:data
+        });
+        toast.success("Apply Successfully for this Job!");
+    } catch (error) {
+        dispatch({
+            type:USER_APPLY_JOB_FAIL,
+            payload:error.response.data.error
+        });
+        toast.error(error.response.data.error);
     }
 }
