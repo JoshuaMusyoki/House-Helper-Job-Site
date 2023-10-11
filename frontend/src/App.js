@@ -17,12 +17,14 @@ import EmployerDashboard from './pages/Employer/EmployerDashboard';
 import EmployerRoutes from './components/EmployerRoutes';
 import SingleJob from './pages/SingleJob';
 import DashUsers from './pages/Employer/DashUsers';
+import DashJobs from './pages/Employer/DashJobs';
 
 const UserDashboardHOC=Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
 const UserInfoDashboardHOC=Layout(UserInfoDashboard);
 const EmployerDashboardHOC=Layout(EmployerDashboard);
 const DashUsersHOC=Layout(DashUsers);
+const DashJobsHOC=Layout(DashJobs);
 const App=()=>{
   return(
     <>
@@ -39,6 +41,7 @@ const App=()=>{
     <Route path='/job/:id' element={<SingleJob />} />
     <Route path='/employer/dashboard' element={<EmployerRoutes><EmployerDashboardHOC /></EmployerRoutes>} />
     <Route path='/employer/users' element={<EmployerRoutes><DashUsersHOC /></EmployerRoutes>} />
+    <Route path='/employer/jobs' element={<EmployerRoutes><DashJobsHOC /></EmployerRoutes>} />
     <Route path='/helper/dashboard' element={<UserRoutes><UserDashboardHOC /></UserRoutes>} />
     <Route path='/helper/jobs' element={<UserRoutes><UserJobsHistoryHOC /></UserRoutes>} />
     <Route path='/helper/info' element={<UserRoutes><UserInfoDashboardHOC /></UserRoutes>} />

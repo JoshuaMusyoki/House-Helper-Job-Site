@@ -16,8 +16,7 @@ import { ALL_USER_LOAD_FAIL,
       USER_SIGNIN_REQUEST, 
       USER_SIGNIN_SUCCESS } from '../constants/userConstants';
 
-
-
+//user sign in action
 export const userSignInAction=(user)=>async(dispatch)=>{
     dispatch({type:USER_SIGNIN_REQUEST})
     try {
