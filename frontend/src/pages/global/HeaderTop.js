@@ -4,6 +4,7 @@ import { Box, height, padding, spacing } from "@mui/system";
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import {useProSidebar} from 'react-pro-sidebar';
+import { useSelector } from "react-redux";
 
 const Search=styled('div')(({theme})=>({
     position:'relative',
@@ -46,6 +47,7 @@ const StyledInputeBase=styled(InputBase)(({theme})=>({
 }));
 const HeaderTop = ()=>{
     const {collapseSidebar}=useProSidebar();
+    const { user } = useSelector(state => state.userProfile);
     return(
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static" sx={{boxShadow:0}}>
@@ -65,7 +67,8 @@ const HeaderTop = ()=>{
                     component="div"
                     sx={{flexGrow:1, display:{xs:'none', sm:'block'}}}
                     >
-                        EMPLOYER DASHBOARD
+                        {user && user.role===0 ? "Helper Dashboard" : "Employer Dashboard"}
+                         
                     </Typography>
                     <Search>
                         <SearchIconWrapper>

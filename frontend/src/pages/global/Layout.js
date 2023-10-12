@@ -2,6 +2,7 @@
 import SidebarAdm from './Sidebar';
 import { Box } from "@mui/material";
 import HeaderTop from './HeaderTop';
+import Navbar from '../../components/Navbar';
 const Layout=(Component)=>(({...props})=>{
     return(
         <>
@@ -12,8 +13,12 @@ const Layout=(Component)=>(({...props})=>{
                 <Box sx={{p:3}}>
                     <Component  {...props} />
                 </Box>
-            </Box>
+               
+            </Box>           
         </div>
+        <Box sx={{width:"100%", bgcolor:'#002952'}}>
+                <Navbar />
+            </Box>
         </>
     )
 })
