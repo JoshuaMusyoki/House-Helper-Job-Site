@@ -20,6 +20,7 @@ import DashUsers from './pages/Employer/DashUsers';
 import DashJobs from './pages/Employer/DashJobs';
 import FirstStep from './pages/SignUp/FirstStep';
 
+
 const UserDashboardHOC=Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
 const UserInfoDashboardHOC=Layout(UserInfoDashboard);
@@ -27,6 +28,8 @@ const EmployerDashboardHOC=Layout(EmployerDashboard);
 const DashUsersHOC=Layout(DashUsers);
 const DashJobsHOC=Layout(DashJobs);
 const App=()=>{
+  
+
   return(
     <>
     <ToastContainer />     
@@ -38,7 +41,7 @@ const App=()=>{
     <Route path='/' element={<Home/>} />
     <Route path='/search/location/:location' element={<Home/>} />
     <Route path='/search/:keyword' element={<Home/>} />
-    <Route path='/SignUp' element={<FirstStep />} />
+    <Route path='/SignUp' element={<FirstStep />} /> 
     <Route path='/Login' element={<Login />} />
     <Route path='/job/:id' element={<SingleJob />} />
     <Route path='/employer/dashboard' element={<EmployerRoutes><EmployerDashboardHOC /></EmployerRoutes>} />

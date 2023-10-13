@@ -22,8 +22,9 @@ const SHeader = ()=>{
         <div>
         <StyledHeader>
             <h1>Registration</h1>
-            <Progress />
+            {/* <Progress /> */}
         </StyledHeader>
+        
         </div>
         </>
     )
