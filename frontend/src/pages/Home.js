@@ -12,6 +12,8 @@ import LoadingBox from '../components/loadingBox'
 import SelectComponent from '../components/selectComponents'
 import { jobTypeLoadAction } from '../redux/actions/jobTypeActions'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import WhatWeDoAsJobProvider from '../components/homeComponents/WhoWeAre'
+import Sidebar from '../pages/global/Sidebar'
 
 const Home = () => {
   const {jobs, SetUniqueLocation, pages, loading}=useSelector(state=>state.loadJobs);
@@ -76,6 +78,7 @@ const Home = () => {
             </Box>
           </Card>
         </Box>
+       
 
         <Box sx={{flex:5, p:2}}>
           {
@@ -105,12 +108,23 @@ const Home = () => {
             ))
           }
           <Stack spacing={2}>
-            <Pagination page={page} count={pages===0 ? 1: pages} onChange={(event, value)=> setPage(value)} />
+            <Pagination page={page} count={pages===1 ? 3: pages} onChange={(event, value)=> setPage(value)} />
           </Stack>
         </Box>
+        
         </Stack>
     </Container>
+    <Container>
+      <Stack
+      direction={{ xs: 'column', sm: 'row' }}
+      spacing={{ xs: 1, sm: 2, md: 4 }}
+      >
+         {/* <Sidebar /> */}
+         <WhatWeDoAsJobProvider />
+      </Stack>
+    </Container>
     </Box>
+    
     <Footer />
     </>
   )

@@ -180,6 +180,16 @@ const Navbar = () => {
                                 Register
                             </Link>
                         </Button>
+                        
+
+                        {/* About Us Page */}
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}>
+                            <Link to="/AboutUs" style={{ color: 'white', textDecoration: "none" }}>
+                                About Us
+                            </Link>
+                        </Button>
                         </Box>
                    
 
