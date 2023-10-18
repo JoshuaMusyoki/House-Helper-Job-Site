@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModels');
 
 router.post('/signup', async (req, res) => {
-    const { name, email, password, country, region } = req.body;
+    const { firstName, lastName, email, password, country, region } = req.body;
     try {
         // Check if the user already exists
         const existingUser = await User.findOne({ email });
@@ -17,7 +17,7 @@ router.post('/signup', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12);
 
         // Create a new user
-        const user = new User({ name, email, country, region, password: hashedPassword });
+        const user = new User({ firstName, lastName, email, country, region, password: hashedPassword });
         await user.save();
 
         // Create a JWT token for authentication
