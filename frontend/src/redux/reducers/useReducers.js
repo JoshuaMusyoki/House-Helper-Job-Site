@@ -18,7 +18,11 @@ import {
      USER_SIGNIN_FAIL, 
      USER_SIGNIN_REQUEST, 
      USER_SIGNIN_RESET, 
-     USER_SIGNIN_SUCCESS } from "../constants/userConstants"
+     USER_SIGNIN_SUCCESS, 
+     USER_SIGNUP_FAIL, 
+     USER_SIGNUP_REQUEST,
+     USER_SIGNUP_RESET,
+     USER_SIGNUP_SUCCESS} from "../constants/userConstants"
 
 
 export const userReducerSignIn=(state={}, action)=>{
@@ -37,6 +41,30 @@ export const userReducerSignIn=(state={}, action)=>{
             return{loading:true, userInfo:null, isAuthenticated:false, error:action.payload}
         
         case USER_SIGNIN_RESET:
+            return {}
+
+        default:
+            return state;
+    }
+}
+
+// user signup reducer
+export const userReducerSignUp=(state={}, action)=>{
+    switch (action.type) {
+        case USER_SIGNUP_REQUEST:
+            return {loading:true, userInfo:null, isAuthenticated:false}
+            
+        case USER_SIGNUP_SUCCESS:
+            return{
+                loading:true,
+                userInfo:action.payload,
+                isAuthenticated:true
+            }
+
+        case USER_SIGNUP_FAIL:
+            return{loading:true, userInfo:null, isAuthenticated:false, error:action.payload}
+        
+        case USER_SIGNUP_RESET:
             return {}
 
         default:

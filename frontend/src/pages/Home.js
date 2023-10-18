@@ -108,7 +108,7 @@ const Home = () => {
             ))
           }
           <Stack spacing={2}>
-            <Pagination page={page} count={pages===1 ? 3: pages} onChange={(event, value)=> setPage(value)} />
+            <Pagination color="primary" variant='outlined' page={page} count={pages===0 ? 1: pages} onChange={(event, value)=> setPage(value)} />
           </Stack>
         </Box>
         

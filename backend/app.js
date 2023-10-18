@@ -15,6 +15,7 @@ const authRoutes=require('./routes/authRoutes')
 const userRoutes=require('./routes/userRoutes')
 const jobTypeRoutes=require('./routes/jobTypeRoutes');
 const jobRoute=require('./routes/jobsRoutes');
+const router=require('./router/signup');
 //MIDDLEWARE
 app.use(morgan("dev"));
 app.use(bodyParser.json({limit:"5mb"}));
@@ -32,6 +33,9 @@ app.use('/api', authRoutes)
 app.use('/api', userRoutes)
 app.use('/api', jobTypeRoutes)
 app.use('/api', jobRoute)
+
+// signup router
+app.use('/api', router)
 //error middleware
 app.use(errorHandler)
 //Database Connection

@@ -70,6 +70,18 @@ const userSchema=mongoose.Schema({
             'Please add a valid email'
         ]
     },
+    country:{
+        type:String,
+        trim:true,
+        required:[true, 'Please select your country'],
+        
+    },
+    region:{
+        type:String,
+        trim:true,
+        required:[true, 'Please select your region'],
+        
+    },
     password:{
         type:String,
         trim:true,

@@ -5,14 +5,25 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SHeader from '../../components/SignUpComponents/SHeader';
 import { useNavigate } from 'react-router-dom';
 import LockClockOutlined from '@mui/icons-material/LockClockOutlined';
+import {CountryDropdown, RegionDropdown, CountryRegionData} from 'react-country-region-selector'
 import { useFormik } from 'formik';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { useDispatch } from 'react-redux';
+import { userSignUpAction } from '../../redux/actions/userActions';
 const UserRegister = () => {
+    const dispatch =useDispatch();
     const [user,setUser] = useState({
-        name:"",
-        email:"",
-        password: ""
+        initialValues:{
+            name:"",
+            email:"",
+            password: ""
+        },        
+
+        onSubmit:(values, actions)=>{
+            dispatch(userSignUpAction(values));
+            actions.resetForm();
+        }
     })
     const handleChange = e =>{
     const {name,value} = e.target
@@ -20,7 +31,12 @@ const UserRegister = () => {
     ...user,//spread operator 
     [name]:value
     })
-    }
+    };
+
+    //handle submit
+    // const handleSubmit = async(e) =>{
+    //     e.preventDefault();
+    // };
 
     const formik = useFormik({
         initialValues:{
@@ -44,6 +60,20 @@ const UserRegister = () => {
    const goBack=()=>{
     navigate('/Login');
    }
+
+   //Select country and region component
+   
+    const[country, setCountry]=useState('');
+    const[region, setRegion]=useState('');
+
+    const handleCountryChange = (val) => {
+        setCountry(val);
+    };
+
+    const handleRegionChange = (val) => {
+        setRegion(val);
+    };
+   
     return (
         <>  
         <Navbar />
@@ -52,7 +82,7 @@ const UserRegister = () => {
         
 <div class="flex flex-col max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
     
-    <Card sx={{minWidth:1159, mb:3, mt:3}}>
+    <Card sx={{minWidth:1200, mb:3, mt:3}}>
     <Card sx={{minWidth:50, mb:3, mt:3}} >
             <Box sx={{height: "5vh", display: "flex", flexDirection: "column",
             alignItems: "center", width: "100%"}}>
@@ -60,7 +90,7 @@ const UserRegister = () => {
             </Box>
         </Card>
     <Box onSubmit={formik.handleSubmit} component="form" className='form_style border-style' >
-                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center",height:"100%", width: "100%" }}>
                     <Avatar sx={{ height:"6vh", m: 1, bgcolor: "primary.main", mb: 3 }}>
                             <LockClockOutlined />
                         </Avatar>
@@ -135,9 +165,17 @@ const UserRegister = () => {
                             error={formik.touched.password && Boolean(formik.errors.password)}
                             helperText={formik.touched.password && formik.errors.password}
                         />
+                          <CountryDropdown
+                          value={country}
+                          onChange={(val)=>handleCountryChange(val)} />
+                          <RegionDropdown
+                          country={country}     
+                          value={region}   
+                          onChange={(val)=>handleRegionChange(val)} />
+                          
 
 
-                        <Button fullWidth variant="contained" type='submit' >Sign Up</Button>
+                        <Button href='/Login' fullWidth variant="contained" type='submit' >Sign Up</Button>
                    
               <span class="justify-center text-sm text-center text-gray-500 flex-items-center dark:text-gray-400">
         Already have an account ?
@@ -149,10 +187,10 @@ const UserRegister = () => {
                     </Box>
               </Card>
          </div>
+         
          </Box>
          <Footer />
-
-        </>
+             </>
     )
 }
 
