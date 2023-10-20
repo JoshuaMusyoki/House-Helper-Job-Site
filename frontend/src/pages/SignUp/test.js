@@ -1,215 +1,369 @@
-import React , {useState} from 'react'
-import axios from "axios";
-import { Avatar, Box, Button, Card, TextField } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {useForm} from 'react-hook-form';
-import SHeader from '../../components/SignUpComponents/SHeader';
+import React, { useRef } from 'react'
+import {useState, useEffect} from 'react';
+import {faCheck, faTimes, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import Login from '../../pages/Login';
+import { Avatar, Box, Button, Card } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import LockClockOutlined from '@mui/icons-material/LockClockOutlined';
-import {CountryDropdown, RegionDropdown, CountryRegionData} from 'react-country-region-selector'
-import { useFormik } from 'formik';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import { useDispatch } from 'react-redux';
-import { userSignUpAction } from '../../redux/actions/userActions';
+import SHeader from '../../components/SignUpComponents/SHeader';
+// import './register.css';
+
+const USER_REGEX=/^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const PWD_REGEX=/^(?=.*[0-9])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
 const UserRegister = () => {
-    const {errors} =useForm();
-    const dispatch =useDispatch();
-    const [user,setUser] = useState({
-        initialValues:{
-            firstName:'',
-           lastName:'',
-            email:'',
-            password: ''
-        },        
+    const userRef=useRef();
+    const errRef=useRef();
 
-        onSubmit:(values, actions)=>{
-            dispatch(userSignUpAction(values));
-            actions.resetForm();
-        }
-    })
-    const handleChange = e =>{
-    const {firstName, lastName, value} = e.target
-    setUser({
-    ...user,//spread operator 
-    [firstName && lastName]:value
-    })
-    };
+    const [user, setUser]=useState('');
+    const [validName, setValidName] = useState(false);
+    const [userFocus, setUserFocus] = useState(false);
 
-    //handle submit
-    // const handleSubmit = async(e) =>{
-    //     e.preventDefault();
-    // };
+    const [pwd, setPwd] =useState('');
+    const [validPwd, setValidPwd] =useState(false);
+    const [pwdFocus, setPwdFocus] = useState(false);
 
-    const formik = useFormik({
-        initialValues:{
+    const [matchPwd, setMatchPwd] =useState('');
+    const [validMatch, setvalidMatch] =useState(false);
+    const [matchFocus, setMatchFocus] = useState(false);
 
-        }
-    })
-//register function 
-   const register = ()=>{
-   const {firstName, lastName, email,password} = user
-//    const firstName=user?.first_name;
-   if (firstName && lastName && email && password){
-    axios.post("http://localhost:9000/signup",user )
-    .then(res=>console.log(res))
-   }
-//    else{
-//        alert("invalid input")
-//    }
-   };
+    const [errMsg, setErrMsg] = useState('');
+    const [success, setSuccess] = useState(false);
 
-   //Previous button
+    useEffect(()=>{
+        userRef.current.focus();
+    },[])
+
+    useEffect(()=>{
+      const result=USER_REGEX.test(user);
+      console.log(result);
+      console.log(user);
+      setValidName(result);
+    },[user])
+
+    useEffect(()=>{
+      const result=PWD_REGEX.test(pwd);
+      console.log(result);
+      console.log(pwd);
+      setValidPwd(result);
+      const match = pwd===matchPwd;
+      setvalidMatch(match);
+    },[pwd, matchPwd])
+
+    useEffect(()=>{
+      // errMsg=setErrMsg('');
+      setErrMsg('');
+    },[user, pwd, matchPwd])
+
+    const handleSubmit=async (e) =>{
+      e.preventDefault();
+      const v1=USER_REGEX.test(user);
+      const v2=PWD_REGEX.test(pwd);
+
+      if(!v1 || !v2){
+        setErrMsg('Invalid Entry');
+        return;
+      }
+      console.log(user, pwd);
+      setSuccess(true);
+    }
+
+     //Previous button
    const navigate=useNavigate();
    const goBack=()=>{
     navigate('/Login');
    }
 
-   //Select country and region component
-   
-    const[country, setCountry]=useState('');
-    const[region, setRegion]=useState('');
+   const styles = {
+    input: {
+      fontFamily: 'Nunito, sans-serif',
+      fontSize: '22px',
+      padding: '0.25rem',
+      borderRadius: '0.5rem',
+    },
+    label: {
+      marginTop: '1rem',
+    },
+    button: {
+      fontFamily: 'Nunito, sans-serif',
+      fontSize: '22px',
+      padding: '0.25rem',
+      borderRadius: '0.5rem',
+    },
+    textarea: {
+      fontFamily: 'Nunito, sans-serif',
+      fontSize: '22px',
+      padding: '0.25rem',
+      borderRadius: '0.5rem',
+    },
+    instructions: {
+      fontSize: '0.75rem',
+      borderRadius: '0.5rem',
+      background: '#000',
+      color: '#fff',
+      padding: '0.25rem',
+      position: 'relative',
+      bottom: '-10px',
+    },
+    instructionsSvg: {
+      marginRight: '0.25rem',
+    },
+    offscreen: {
+      position: 'absolute',
+      left: '-9999px',
+    },
+    hide: {
+      display: 'none',
+    },
+    valid: {
+      color: 'limegreen',
+      marginLeft: '0.25rem',
+    },
+    invalid: {
+      color: 'red',
+      marginLeft: '0.25rem',
+    },
+    errmsg: {
+      backgroundColor: 'lightpink',
+      color: 'firebrick',
+      fontWeight: 'bold',
+      padding: '0.5rem',
+      marginBottom: '0.5rem',
+    },
+    line: {
+      display: 'inline-block',
+    },
+    form: {
+      margin: '0',
+      padding: '0',
+      boxSizing: 'border-box',
+      justifyContent:'center',
+      alignItems:'center',
+    },
+    html: {
+      fontFamily: 'Nunito, sans-serif',
+      fontSize: '22px',
+      color: '#fff',
+    },
+    body: {
+      minHeight: '100vh',
+      backgroundColor: 'dodgerblue',
+    },
+    App: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '100vh',
+      padding: '1rem 0.5rem',
+    },
+    section: {
+      width: '100%',
+      maxWidth: '420px',
+      minHeight: '400px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      padding: '1rem',
+      backgroundColor: 'rgba(0,0,0,0.4)',
+    },
+    section: {
+      width: '100%',
+      maxWidth: '420px',
+      minHeight: '400px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      padding: '1rem',
+      backgroundColor: 'rgba(0,0,0,0.4)',
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-evenly',
+      flexGrow: 1,
+      paddingBottom: '1rem',
+    },
+    link: {
+      color: '#fff',
+    },
+  };
 
-    const handleCountryChange = (val) => {
-        setCountry(val);
-    };
-
-    const handleRegionChange = (val) => {
-        setRegion(val);
-    };
+  
    
-    return (
-        <>  
-        <Navbar />
-        <SHeader />
-        <Box sx={{height:"100vh", display:"flex", alignItems:"center", justifyContent:"center"}}>
-        
-<div class="flex flex-col max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
-    
-    <Card sx={{minWidth:1200, mb:3, mt:3}}>
-    <Card sx={{minWidth:50, mb:3, mt:3}} >
-            <Box sx={{height: "5vh", display: "flex", flexDirection: "column",
-            alignItems: "center", width: "100%"}}>
-            <Button onClick={goBack}> <ArrowBackIcon />Select you role</Button>
-            </Box>
-        </Card>
-    <Box onSubmit={formik.handleSubmit} component="form" className='form_style border-style' >
-                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center",height:"100%", width: "100%" }}>
-                    <Avatar sx={{ height:"6vh", m: 1, bgcolor: "primary.main", mb: 3 }}>
-                        </Avatar>
-                    <Box sx={{height:'8vh', display:'flex',alignItems:'center', justifyContent:'center'}}>
-                        <h3>Sign Up</h3>
+  return (
+    <>
+
+    <Navbar />
+    <SHeader />
+    {success ?(
+      <section style={styles.section}>
+      <h1>Success!</h1>
+      <p>
+      <a href='Login'>Sign In</a>
+      </p>
+      </section>
+    ):(
+   
+
+         <Box sx={{height:"150vh", display:"flex", alignItems:"center", justifyContent:"center"}}>
+
+        <div class="flex flex-col max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
+            
+            <Card sx={{minWidth:1500, mb:3, mt:3}}>
+            <Card sx={{minWidth:50, mb:3, mt:3}} >
+                    <Box sx={{height: "5vh", display: "flex", flexDirection: "column",
+                    alignItems: "center", width: "100%"}}>
+                    <Button onClick={goBack}> <ArrowBackIcon />Select you role</Button>
                     </Box>
+                </Card>
+                    
+    <section >
+      <p  ref={errRef} className={errMsg ? 'errMsg' : "offscreen"} aria-live="assertive">{errMsg}  </p>
+      {/* <h1>Register</h1> */}
+      <Box onSubmit={handleSubmit}  component="form" className='form_style border-style' style={styles.form}>
+     
+       
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center",height:"100%", width: "100%" }}>
 
-                        <TextField sx={{ mb: 3 }}
-                            fullWidth
-                            id="first_name"
-                            name="first_name"
-                            label="Enter Your First Name"
-                            type="text"
-                            autoComplete='off'
+        <label htmlFor="firstName" style={styles.label}>
+          First Name: 
+          
+          <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} style={styles} />
+          <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} />
+        </label>
 
-                            // ref={register({
-                            //     required:"First Name is required.",
+        <input
+        type='text'
+        style={styles.input}
+        id='firstname'
+        ref={userRef}
+        autoComplete='off'
+        onChange={(e)=>setUser(e.target.value)}
+        required
+        aria-invalid={validName ? "false":"true"}
+        aria-describedby='uidnote'
+        onFocus={()=>setUserFocus(true)}
+        onBlur={()=>setUserFocus(false)}
+        />
+        <p id='uidnote'  style={styles.instructions } className={userFocus && user && !validName ? "instructions":"offscreen"}>
+          <FontAwesomeIcon icon={faInfoCircle}/>
+          4 to 24 characters.<br />
+          Must begin with a letter.<br />
+          Letters, numbers, underscores, hyphens allowed.
+        </p>
 
-                            //     pattern:{
-                            //         value:/^[a-zA-Z]+$/,
-                            //         message:"First name should contain only characters"
-                            //     }
-                            // })}
-                            // className={`${errors.first_name ? 'input-error' : ''}`}
+        <label htmlFor='lastName'>
+          Last Name: 
+          <span className={validName ? "valid" : "hide"}>
+            <FontAwesomeIcon icon={faCheck} />
+          </span>
+          <span className={validName || !user ? "hide" : "invalid"}>
+            <FontAwesomeIcon icon={faTimes} />
+          </span>
+        </label>
 
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            placeholder="Enter your First Name"
-                            value={formik.values.firstName}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-                            helperText={formik.touched.firstName && formik.errors.firstName}
-                        />
-                        {errors.firstName &&(
-                             <p className="errorMsg">{errors.firstName.message}</p>
-                        )}
+        <input
+        type='text'
+        id='lastName'
+        style={styles.input}
+        ref={userRef}
+        autoComplete='off'
+        onChange={(e)=>setUser(e.target.value)}
+        required
+        aria-invalid={validName ? "false":"true"}
+        aria-describedby='uidnote'
+        onFocus={()=>setUserFocus(true)}
+        onBlur={()=>setUserFocus(false)}
+        />
+        <p id='uidnote' style={styles.instructions} className={userFocus && user && !validName ? "instructions":"offscreen"}>
+          <FontAwesomeIcon icon={faInfoCircle} style={styles.instructionsSvg}/>
+          4 to 24 characters.<br />
+          Must begin with a letter.<br />
+          Letters, numbers, underscores, hyphens allowed.
+        </p>
 
-                         <TextField sx={{ mb: 3 }}
-                            fullWidth
-                            id="last_name"
-                            name="last_name"
-                            label="Enter Your Last Name"
-                            type="text"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            placeholder="Enter your Last Name"
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.name && Boolean(formik.errors.name)}
-                            helperText={formik.touched.name && formik.errors.name}
-                        />
+        <label htmlFor='password' style={styles.label}>
+          Password: 
+          <span className={validPwd ? "valid" : "hide"}>
+            <FontAwesomeIcon icon={faCheck} />
+          </span>
+          <span className={validPwd || !pwd ? "hide" : "invalid"}>
+            <FontAwesomeIcon icon={faTimes} />
+          </span>
+        </label>
 
-                        <TextField sx={{ mb: 3 }}
-                            fullWidth
-                            id="email"
-                            label="E-mail"
-                            name='email'
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            placeholder="E-mail"
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            helperText={formik.touched.email && formik.errors.email}
-                        />
+        <input
+        type='password'
+        id='password'
+        style={styles.input}
+        autoComplete='off'
+        onChange={(e)=>setPwd(e.target.value)}
+        required
+        aria-invalid={validPwd ? "false":"true"}
+        aria-describedby='pwdnote'
+        onFocus={()=>setPwdFocus(true)}
+        onBlur={()=>setPwdFocus(false)}
+        />
+        <p id='pwdnote' style={styles.instructions} className={pwdFocus && !validPwd ? "instructions":"offscreen"}>
+          <FontAwesomeIcon icon={faInfoCircle} />
+          8 to 24 characters.<br />
+          Must include uppercase and lowercase letters, a number and a special character.<br />
+         Special characters allowed: <span aria-label='exclamation-mark'>!</span> 
+         <span aria-label='at symbol'>@</span> <span aria-label='hashtag'>#</span>
+        <span aria-label='dollar sign'>$</span><span aria-label='percent'>%</span>
+        </p>
 
-                        
-                        <TextField sx={{ mb: 3 }}
-                            fullWidth
-                            id="password"
-                            name="password"
-                            label="Password"
-                            type="password"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            placeholder="Password"
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password}
-                        />
-                          <CountryDropdown
-                          value={country}
-                          onChange={(val)=>handleCountryChange(val)} />
-                          <RegionDropdown
-                          country={country}     
-                          value={region}   
-                          onChange={(val)=>handleRegionChange(val)} />
-                          
+        <label htmlFor='confirm_pwd' style={styles.label}>
+          Confirm Password: 
+          <span className={validMatch && matchPwd ? "valid" : "hide"}>
+            <FontAwesomeIcon icon={faCheck} />
+          </span>
+          <span className={validMatch || !matchPwd ? "hide" : "invalid"}>
+            <FontAwesomeIcon icon={faTimes} />
+          </span>
+        </label>
 
-
-                        <Button href='/Login' fullWidth variant="contained" type='submit' >Sign Up</Button>
-                   
-              <span class="justify-center text-sm text-center text-gray-500 flex-items-center dark:text-gray-400">
-        Already have an account ?
-        <a href="/Login" target="_parent" class="text-sm text-blue-500 underline hover:text-blue-700">
-            Sign in
-        </a>
-    </span>
+        <input
+        type='password'
+        id='confirm_pwd'
+        style={styles.input}
+        autoComplete='off'
+        onChange={(e)=>setMatchPwd(e.target.value)}
+        required
+        aria-invalid={validMatch ? "false":"true"}
+        aria-describedby='confirmnote'
+        onFocus={()=>setMatchFocus(true)}
+        onBlur={()=>setMatchFocus(false)}
+        />
+        <p id='confirmnote' style={styles.instructions} className={matchFocus && !validMatch ? "instructions":"offscreen"}>
+          <FontAwesomeIcon icon={faInfoCircle} />
+         Must match the first input password field
+        </p>
+        <button style={styles.button} disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+      
+     
+      <p style={styles.link}>
+      Already Registered? <br/>
+      <span className="line">
+        <a href='/Login'>Sign In</a>
+      </span>
+      </p>
+      </Box>
+      </Box>
+    </section>
+   
+    </Card>
+    </div>
     </Box>
-                    </Box>
-              </Card>
-         </div>
-         
-         </Box>
-         <Footer />
-             </>
-    )
+    )}
+    <Footer />
+    </>
+  )
+    
 }
 
 export default UserRegister
