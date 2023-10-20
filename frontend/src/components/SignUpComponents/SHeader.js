@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Avatar, Box } from "@mui/material"
 import React from "react"
 import headerImage from '../../images/jobbg.jpg';
 import Progress from "./Progress";
@@ -21,8 +21,11 @@ const SHeader = ()=>{
         <>
         <div>
         <StyledHeader>
-            <h1>Registration</h1>
-            {/* <Progress /> */}
+        <Avatar sx={{ height:"6vh", m: 1, bgcolor: "primary.main", mb: 3 }}>
+                        </Avatar>
+                    <Box sx={{height:'8vh', display:'flex',alignItems:'center', justifyContent:'center'}}>
+                        <h3>Registration</h3>
+                    </Box>
         </StyledHeader>
         
         </div>

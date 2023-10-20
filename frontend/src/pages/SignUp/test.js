@@ -81,7 +81,7 @@ const UserRegister = () => {
     return (
         <>  
         <Navbar />
-        <SHeader />  
+        <SHeader />
         <Box sx={{height:"100vh", display:"flex", alignItems:"center", justifyContent:"center"}}>
         
 <div class="flex flex-col max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
@@ -96,7 +96,6 @@ const UserRegister = () => {
     <Box onSubmit={formik.handleSubmit} component="form" className='form_style border-style' >
                     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center",height:"100%", width: "100%" }}>
                     <Avatar sx={{ height:"6vh", m: 1, bgcolor: "primary.main", mb: 3 }}>
-                            <LockClockOutlined />
                         </Avatar>
                     <Box sx={{height:'8vh', display:'flex',alignItems:'center', justifyContent:'center'}}>
                         <h3>Sign Up</h3>
