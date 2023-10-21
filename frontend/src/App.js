@@ -19,6 +19,7 @@ import SingleJob from './pages/SingleJob';
 import DashUsers from './pages/Employer/DashUsers';
 import DashJobs from './pages/Employer/DashJobs';
 import UserRegister from './pages/SignUp/UserRegister';
+import adminSignUp from './pages/SignUp/adminSignUp';
 import AboutUs from './pages/About/about';
 
 
@@ -44,6 +45,7 @@ const App=()=>{
     <Route path='/search/location/:location' element={<Home/>} />
     <Route path='/search/:keyword' element={<Home/>} />
     <Route path='/UserRegister' element={<UserRegister />} /> 
+    <Route path='/adminSignUp' element={<adminSignUp />} /> 
     <Route path='/Login' element={<Login />} />
     <Route path='/job/:id' element={<SingleJob />} />
     <Route path='/employer/dashboard' element={<EmployerRoutes><EmployerDashboardHOC /></EmployerRoutes>} />

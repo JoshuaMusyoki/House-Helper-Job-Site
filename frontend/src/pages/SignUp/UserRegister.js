@@ -7,7 +7,7 @@ import Navbar from '../../components/Navbar';
 import SHeader from '../../components/SignUpComponents/SHeader';
 import Footer from '../../components/Footer';
 
-const Register = () => {
+const UserRegister = () => {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -93,4 +93,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default UserRegister
