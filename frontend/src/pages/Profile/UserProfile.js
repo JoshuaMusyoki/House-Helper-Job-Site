@@ -1,12 +1,13 @@
 import { Box, Button, Card, FormLabel, MenuItem, Select, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import { Country, State, City } from 'country-state-city';
+import {CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import Navbar from '../../components/Navbar';
 
 
 
 const UserProfile = () => {
- 
+  const [country, setCountry] = useState('');
+  const [region, setRegion] = useState('');
 
   const [profileData, setProfileData] = useState({
     name: '',
@@ -51,7 +52,13 @@ const UserProfile = () => {
   };
 
   // Implementation of country region selection for user location
-  
+  const selectCountry = (val) => {
+    setCountry(val);
+  }
+
+  const selectRegion = (val) => {
+    setRegion(val);
+  }
 
   return (
     <>
@@ -181,6 +188,16 @@ const UserProfile = () => {
               />
 
               <FormLabel>Currect Location</FormLabel>
+              <CountryDropdown
+              value={country}
+              onChange={(val) => selectCountry(val)}
+              />
+              <RegionDropdown
+               country={country}
+               value={region}
+               onChange={(val) => selectRegion(val)}
+               />
+
               <Button type="submit">Submit Profile</Button>
             </form>
           </Box>
