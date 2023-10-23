@@ -33,7 +33,7 @@ const Login = () => {
             if(userInfo.role ===1){
                 navigate('/employer/dashboard');
             }else{
-                navigate('/helper/dashboard');
+                navigate('/helper/CreateProfile');
             }
          }
         // if (isAuthenticated) {
