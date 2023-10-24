@@ -22,6 +22,7 @@ import UserRegister from './pages/SignUp/UserRegister';
 import adminSignUp from './pages/SignUp/adminSignUp';
 import UserProfile from './pages/Profile/UserProfile';
 import AboutUs from './pages/About/about';
+import FileUploadComponent from './pages/Profile/FileUploadComponent';
 
 
 const UserDashboardHOC=Layout(UserDashboard);
@@ -48,6 +49,7 @@ const App=()=>{
     <Route path='/UserRegister' element={<UserRegister />} /> 
     <Route path='/adminSignUp' element={<adminSignUp />} /> 
     <Route path='/Login' element={<Login />} />
+    <Route path='/FileUploadComponent' element={<FileUploadComponent />} />
     <Route path='/helper/CreateProfile' element={<UserProfile />} />
     <Route path='/job/:id' element={<SingleJob />} />
     <Route path='/employer/dashboard' element={<EmployerRoutes><EmployerDashboardHOC /></EmployerRoutes>} />

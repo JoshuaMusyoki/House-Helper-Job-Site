@@ -2,12 +2,15 @@ import { Box, Button, Card, FormLabel, MenuItem, Select, TextField } from '@mui/
 import React, { useState } from 'react';
 import {CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 
 
 const UserProfile = () => {
   const [country, setCountry] = useState('');
+  // const [preferredCountry, setPreferredCountry] = useState('');
   const [region, setRegion] = useState('');
+  // const [preferredRegion, setPreferredRegion] = useState('');
 
   const [profileData, setProfileData] = useState({
     name: '',
@@ -17,7 +20,9 @@ const UserProfile = () => {
     languages: [],
     drivingLicense: false,
     tribe: '',
-    currentLocation: '',
+    // currentLocation: '',
+    country:'',
+    region:'',
     preferredLocations: [],
     openForEmployment: false,
     phoneNumber: '',
@@ -59,15 +64,68 @@ const UserProfile = () => {
   const selectRegion = (val) => {
     setRegion(val);
   }
+//Preferred Location Listing
+  const [enteredValue, setEnteredValue] = useState(''); // Input field value
+  const [selectedValues, setSelectedValues] = useState([]); // List of selected values
+
+  const handleInputValueChange = (event) => {
+    setEnteredValue(event.target.value);
+  };
+
+  const handleAddValue = () => {
+    if (enteredValue.trim() !== '') {
+      setSelectedValues([...selectedValues, enteredValue]);
+      setEnteredValue('');
+    }
+  };
+
+  const handleRemoveValue = (value) => {
+    setSelectedValues(selectedValues.filter((item) => item !== value));
+  };
+
+
+  //Skills Listing
+  const [enteredSkill, setEnteredSkill] = useState(''); // Input field value
+  const [selectedSkills, setSelectedSkills] = useState([]); // List of selected values
+
+  const handleInputSkillChange = (event) => {
+    setEnteredSkill(event.target.value);
+  };
+
+  const handleAddSkill = () => {
+    if (enteredSkill.trim() !== '') {
+      setSelectedSkills([...selectedSkills, enteredSkill]);
+      setEnteredSkill('');
+    }
+  };
+
+  const handleRemoveSkill = (value) => {
+    setSelectedSkills(selectedSkills.filter((item) => item !== value));
+  };
+
+
+  // Email Input component
+  const [email, setEmail] = useState('');
+  const [isEmailValid, setIsEmailValid] = useState(true);
+
+  const handleEmailChange = (event) => {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+    // Email validation using a regular expression
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    setIsEmailValid(emailPattern.test(newEmail));
+  };
 
   return (
     <>
       <Navbar />
-
-      <Box sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Card sx={{mb:3}}>
+      <Box sx={{ height: '230vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ margin: 'auto', width: '50%' }}>
         <Box onSubmit={handleSubmit} component="form" className='form-form_style border-style'>
-          <Box sx={{ mb: 3, display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
 
+         
             <form>
               {/* <label>
         Enter Your FullName:
@@ -108,10 +166,10 @@ const UserProfile = () => {
                   onChange={handleInputChange}
                   //  value={profileData.sex}
                   name='sex'
-                //  InputLabelProps={{
-                //   shrink:true,
-                //   required:true
-                //  }}
+                 InputLabelProps={{
+                  shrink:true,
+                  required:true
+                 }}
                 >
                   <MenuItem value="male">Male</MenuItem>
                   <MenuItem value="female">Female</MenuItem>
@@ -175,6 +233,7 @@ const UserProfile = () => {
                 <MenuItem value='no'>No</MenuItem>
               </Select>
               <TextField
+              sx={{mb:3}}
                 fullWidth
                 id='tribe'
                 type='text'
@@ -187,8 +246,11 @@ const UserProfile = () => {
                 onChange={handleInputChange}
               />
 
+              
               <FormLabel>Currect Location</FormLabel>
+              <br />
               <CountryDropdown
+              sx={{mb:3}}
               value={country}
               onChange={(val) => selectCountry(val)}
               />
@@ -197,12 +259,140 @@ const UserProfile = () => {
                value={region}
                onChange={(val) => selectRegion(val)}
                />
+               <br />
+               <br />
+               <FormLabel>Are you open for Employment</FormLabel>
+               <Select
+                sx={{ mb: 3 }}
+                defaultValue='level'
+                onChange={handleInputChange}
+                name='level-of-education'
+                InputLabelProps={{
+                  shrink: true,
+                  required: true
+                }}
+                >
+                <MenuItem value="yes">Yes</MenuItem>
+                <MenuItem value="no">No</MenuItem>
+                </Select>
 
-              <Button type="submit">Submit Profile</Button>
+                <br />
+              {/* <TextField sx={{mb:3}}
+              fullWidth
+              id='preferredLocations'
+              type='text'
+              label='Your Preferred Job Locations'
+              InputLabelProps={{
+                shrink: true,
+                required: true
+              }}
+              placeholder='Your Preferred Job Locations'
+              onChange={handleInputChange}
+              /> */}
+              {/* <br /> */}
+              <input sx={{mb:3}}
+              fullWidth
+              type="text"
+              value={enteredValue}
+              onChange={handleInputValueChange}
+              placeholder="Preferred Work Location"
+          onKeyUp={(event) => {
+            if (event.key === 'Enter' || event.key === ',') {
+              handleAddValue();
+            }
+          }}
+          />
+           <button onClick={handleAddValue}>Add</button>
+    
+      <div>
+        {selectedValues.map((value, index) => (
+          <div key={index}>
+            {value}
+            <button onClick={() => handleRemoveValue(value)}>Remove</button>
+          </div>
+        ))}
+      </div>
+      <br />
+
+              <TextField sx={{mb:3}}
+              fullWidth
+              id='phoneNumber'
+              type='tel'
+              label='Active Phone Number'
+              InputLabelProps={{
+                shrink:true,
+                required:true
+              }}
+              placeholder='Phone Number'
+              onChange={handleInputChange}
+              />
+               <TextField sx={{mb:3}}
+               fullWidth
+              type="email"
+              value={email}
+              label='E-mail'
+              InputLabelProps={{
+                shrink:true,
+                required:true
+              }}
+              onChange={handleEmailChange}
+              placeholder="Enter your email"
+              />
+           
+      {!isEmailValid && (
+        <p style={{ color: 'red' }}>Please enter a valid email address.</p>
+      )}
+
+<TextField sx={{mb:3}}
+              fullWidth
+              type="text"
+              value={enteredSkill}
+              onChange={handleInputSkillChange}
+              placeholder="Your Skills"
+          onKeyUp={(event) => {
+            if (event.key === 'Enter' || event.key === ',') {
+              handleAddSkill();
+            }
+          }}
+          />
+           <button onClick={handleAddSkill}>Add</button>
+    
+      <div>
+        {selectedSkills.map((value, index) => (
+          <div key={index}>
+            {value}
+            <button onClick={() => handleRemoveSkill(value)}>Remove</button>
+          </div>
+        ))}
+      </div>
+      <br />
+      <FormLabel>Tell Us About Yourself</FormLabel>
+      <br />
+      <br />
+      <TextField sx={{mb:3}}
+      fullWidth
+      id='briefStatement'
+      type='text'
+      label='Description'
+      // value={briefStatement}
+
+      InputLabelProps={{
+        shrink:true,
+        required:true
+      }}
+      onChange={handleInputChange}
+      placeholder='Tell us about yourself'
+      />
+               <br />
+             <Button variant='next' href='/FileUploadComponent'>Next</Button>
             </form>
+            
           </Box>
         </Box>
+        </div>
       </Box>
+     </Card>
+      <Footer />
     </>
   );
 
