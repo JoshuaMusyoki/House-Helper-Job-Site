@@ -1,5 +1,8 @@
 import { Box, Button, Card, FormLabel, MenuItem, Select, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import {useDropzone} from 'react-dropzone';
+import  ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 import {CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -115,6 +118,40 @@ const UserProfile = () => {
     const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     setIsEmailValid(emailPattern.test(newEmail));
   };
+
+  //Uploading documents
+  const [acceptedFile, setAcceptedFiles] = useState([]);
+  const [crop, setCrop] = useState({aspect: 1});
+  const [croppedImage, setCroppedImage] = useState(null);
+
+  const onDrop=(accepted)=>{
+      setAcceptedFiles(accepted);
+  }
+
+  const {getRootProps, getInputProps} = useDropzone({
+      onDrop,
+      // Defile accepted file types
+      accept:['.pdf', '.jpg'],
+
+      // Allow multiple file selection
+      multiple:true,
+  });
+  const handleImageLoad=(image)=>{
+      setCrop({
+          unit:'%',
+          width:100,
+          aspect:1,
+      });
+  };
+
+  const handleImageCrop=(crop) =>{
+      setCrop(crop);
+  }
+
+  const handleImageCropComplete=(croppedArea, croppedAreaPixels)=>{
+      setCroppedImage(croppedArea)
+  };
+
 
   return (
     <>
@@ -383,8 +420,27 @@ const UserProfile = () => {
       onChange={handleInputChange}
       placeholder='Tell us about yourself'
       />
+
+      <FormLabel>Upload Your Documents Here..</FormLabel>
+      {/* Upload your Documents */}
+      <Box className="document-holder" sx={{ p: 4, textAlign: 'center' }}>
+          <div {...getRootProps()} className="dropzone">
+            <input {...getInputProps()} />
+            {acceptedFile.length === 0 ? (
+              <h6>Upload Your Certificates(Driving licence, Education certificates, Good Conduct etc) in one</h6>
+            ) : (
+              <p>{acceptedFile[0].name} uploaded successfully</p>
+            )}
+          </div>
+          {acceptedFile.length > 0 && (
+            <Button variant="contained" color="primary" onClick={() => setAcceptedFiles([])}>
+              Clear Document
+            </Button>
+          )}
+        </Box>
+        <FormLabel>Upload an Official Passport Photo</FormLabel>
                <br />
-             <Button variant='next' href='/FileUploadComponent'>Next</Button>
+             <Button type='submit'>Submit Profile</Button>
             </form>
             
           </Box>
