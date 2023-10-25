@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import {useDropzone} from 'react-dropzone';
 import  ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
+import AvatarEditor from 'react-avatar-editor';
 import {CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -121,6 +122,8 @@ const UserProfile = () => {
 
   //Uploading documents
   const [acceptedFile, setAcceptedFiles] = useState([]);
+  const [editor, setEditor] = useState(null);
+  const [scale, setScale] = useState(1.2);
   const [crop, setCrop] = useState({aspect: 1});
   const [croppedImage, setCroppedImage] = useState(null);
 
@@ -151,13 +154,26 @@ const UserProfile = () => {
   const handleImageCropComplete=(croppedArea, croppedAreaPixels)=>{
       setCroppedImage(croppedArea)
   };
+  
+  const handleScaleChange=(e)=>{
+    const newScale = parseFloat(e.target.value);
+    setScale(newScale);
+  }
+
+  const handleSave=()=>{
+    if(editor){
+      const editedImage = editor.getImageScaleToCanvas().toDataURl('image/jpeg');
+      //  Send the editedImage data to your server or process it as needed 
+    }
+  };
+
 
 
   return (
     <>
       <Navbar />
       <Card sx={{mb:3}}>
-      <Box sx={{ height: '230vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Box sx={{ height: '240vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <div style={{ margin: 'auto', width: '50%' }}>
         <Box onSubmit={handleSubmit} component="form" className='form-form_style border-style'>
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
@@ -314,19 +330,7 @@ const UserProfile = () => {
                 </Select>
 
                 <br />
-              {/* <TextField sx={{mb:3}}
-              fullWidth
-              id='preferredLocations'
-              type='text'
-              label='Your Preferred Job Locations'
-              InputLabelProps={{
-                shrink: true,
-                required: true
-              }}
-              placeholder='Your Preferred Job Locations'
-              onChange={handleInputChange}
-              /> */}
-              {/* <br /> */}
+          
               <input sx={{mb:3}}
               fullWidth
               type="text"
@@ -439,6 +443,41 @@ const UserProfile = () => {
           )}
         </Box>
         <FormLabel>Upload an Official Passport Photo</FormLabel>
+        <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Box className='document-holder' sx={{p:4, textAlign:'center'}}>
+            <div {...getRootProps()} className='dropzone'>
+              <input {...getInputProps} />
+              <p>Upload a JPG passport sized photo</p>
+              {acceptedFile.length>0 && (
+                <>
+                <AvatarEditor 
+                ref={(ref)=>setEditor(ref)}
+                width={200}
+                height={200}
+                border={10}
+                color={[255, 255, 255, 0.6]}
+                scale={scale}
+                />
+                <label htmlFor='scale'>Scale: </label>
+                <input
+                type='range'
+                id='scale'
+                value={scale}
+                min="1"
+                max="2"
+                step="0.01"
+                onChange={handleScaleChange}
+                />
+                <Button variant="contained" color="primary" onClick={handleSave}>
+                  Save Edited Photo
+                </Button>
+
+                </>
+              )}
+            </div>
+          </Box>
+          
+        </Box>
                <br />
              <Button type='submit'>Submit Profile</Button>
             </form>
