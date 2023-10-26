@@ -173,7 +173,7 @@ const UserProfile = () => {
     <>
       <Navbar />
       <Card sx={{mb:3}}>
-      <Box sx={{ height: '240vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Box sx={{ height: '26vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <div style={{ margin: 'auto', width: '50%' }}>
         <Box onSubmit={handleSubmit} component="form" className='form-form_style border-style'>
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>

@@ -23,6 +23,7 @@ import adminSignUp from './pages/SignUp/adminSignUp';
 import UserProfile from './pages/Profile/UserProfile';
 import AboutUs from './pages/About/about';
 import FileUploadComponent from './pages/Profile/FileUploadComponent';
+import Jobs from './pages/Jobs';
 
 
 const UserDashboardHOC=Layout(UserDashboard);
@@ -58,7 +59,8 @@ const App=()=>{
     <Route path='/helper/dashboard' element={<UserRoutes><UserDashboardHOC /></UserRoutes>} />
     <Route path='/helper/jobs' element={<UserRoutes><UserJobsHistoryHOC /></UserRoutes>} />
     <Route path='/helper/info' element={<UserRoutes><UserInfoDashboardHOC /></UserRoutes>} />
-   <Route path='*' element={<NotFound />}/>
+   <Route path='*' element={<NotFound />}/> 
+   <Route path='/Jobs' element={<Jobs />} />
    </Routes>
    </BrowserRouter>
       </ProSidebarProvider>
