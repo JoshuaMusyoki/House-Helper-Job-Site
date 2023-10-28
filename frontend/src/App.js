@@ -24,6 +24,7 @@ import UserProfile from './pages/Profile/UserProfile';
 import AboutUs from './pages/About/about';
 import FileUploadComponent from './pages/Profile/FileUploadComponent';
 import Jobs from './pages/Jobs';
+import JobPostForm from './pages/JobPosting';
 
 
 const UserDashboardHOC=Layout(UserDashboard);
@@ -32,6 +33,7 @@ const UserInfoDashboardHOC=Layout(UserInfoDashboard);
 const EmployerDashboardHOC=Layout(EmployerDashboard);
 const DashUsersHOC=Layout(DashUsers);
 const DashJobsHOC=Layout(DashJobs);
+const JobPostFormHOC= Layout(JobPostForm);
 const App=()=>{
   
 
@@ -61,6 +63,7 @@ const App=()=>{
     <Route path='/helper/info' element={<UserRoutes><UserInfoDashboardHOC /></UserRoutes>} />
    <Route path='*' element={<NotFound />}/> 
    <Route path='/Jobs' element={<Jobs />} />
+   <Route path='/JobPosting' element={<JobPostFormHOC />} />
    </Routes>
    </BrowserRouter>
       </ProSidebarProvider>
