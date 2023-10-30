@@ -16,6 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogoutAction } from '../redux/actions/userActions';
+import { jobLoadAction } from '../redux/actions/jobActions';
 
 
 const pages = ['Home', 'Log In' ];
@@ -54,6 +55,15 @@ const Navbar = () => {
             navigate('/');
         }, 500)
     }
+    const JobSection=() => {
+       
+        if (userInfo.role ===1){
+            navigate('/JobPosting');
+        }else{
+            navigate('/ViewJobs');
+        }
+       
+   }
 
 
 
@@ -153,9 +163,13 @@ const Navbar = () => {
                         <Button
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}>
-                            <Link to="#" style={{ color: 'white', textDecoration: "none" }}>
+                              
+                              <Button onClick={JobSection} style={{color:'white', textDecoration:"none"}}>
                                 Jobs
-                            </Link>
+                              </Button>
+                            {/* <Link to="/ViewJobs" style={{ color: 'white', textDecoration: "none" }}>
+                                Jobs
+                            </Link> */}
                         </Button>
 
 

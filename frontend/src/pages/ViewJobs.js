@@ -6,7 +6,7 @@ const ViewJobs = () => {
     const [jobsStateArray, setJobsStateArray] = useState([])
 
     useEffect(() => {          
-        axios.get('/api/jobs/show/')
+        axios.get('/api/jobs/show')
         .then(response => {
             console.log(response)
             setJobsStateArray(response.data)
@@ -16,7 +16,8 @@ const ViewJobs = () => {
     return(
         <div className="viewJobsContainer">
             <h3>View Available Jobs</h3>
-            {jobsStateArray.map((item, index) => {
+            
+            {jobsStateArray.map((item, index)=>{
                 return(
                     <div className="jobCard">
                         <p><strong>Job Title</strong>: {item.title}</p>
