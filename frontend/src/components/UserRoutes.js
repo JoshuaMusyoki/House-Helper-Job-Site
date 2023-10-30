@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 const UserRoutes=({children})=>{
     const {userInfo}=useSelector((state)=>state.signIn);
-    return userInfo ? children : <Navigate to="/" />;
+    return userInfo && userInfo.role==0 ? children : <Navigate to="/" />;
 }
 
 export default UserRoutes

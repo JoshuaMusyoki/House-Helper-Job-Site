@@ -16,7 +16,7 @@ const UserRegister = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        axios.post( 'http://localhost:9000/signup', {name, email, password})
+        axios.post( '/api/signup', {name, email, password})
         .then(result => {
             console.log(result);
             if(result.data === "Already registered"){
