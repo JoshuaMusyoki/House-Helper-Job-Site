@@ -8,6 +8,7 @@ import { JOB_LOAD_FAIL,
        REGISTER_JOB_FAIL, 
        REGISTER_JOB_REQUEST,
        REGISTER_JOB_SUCCESS} from "../constants/jobConstants"
+import { toast } from 'react-toastify'
 
 
 export const jobLoadAction=(pageNumber, cat='', keyword='', location='')=>async(dispatch)=>{
