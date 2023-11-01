@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { CREATE_JOB_TYPE_FAIL, CREATE_JOB_TYPE_REQUEST, CREATE_JOB_TYPE_SUCCESS, JOB_TYPE_LOAD_FAIL, JOB_TYPE_LOAD_REQUEST, JOB_TYPE_LOAD_SUCCESS } from '../constants/jobTypeConstant';
+import { toast } from 'react-toastify';
 
 export const jobTypeLoadAction=()=>async(dispatch)=>{
     dispatch({type:JOB_TYPE_LOAD_REQUEST});
@@ -17,7 +18,7 @@ export const jobTypeLoadAction=()=>async(dispatch)=>{
     }
 }
 
-export const createJobTypeAction=()=>async(dispatch)=>{
+export const createJobTypeAction=(jobtype)=>async(dispatch)=>{
     dispatch({ type: CREATE_JOB_TYPE_REQUEST })
 
     try {
