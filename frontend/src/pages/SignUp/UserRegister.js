@@ -184,8 +184,6 @@ const UserRegister = () => {
                                 // onChange={(event) => setPassword(event.target.value)}
                                 onChange={handleChange('password')}
                                 required
-
-                                
                                 endAdornment={
                                     <InputAdornment>
                                       <IconButton
