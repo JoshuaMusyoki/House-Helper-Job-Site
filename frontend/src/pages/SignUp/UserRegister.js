@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -9,12 +9,13 @@ import Footer from '../../components/Footer';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { userSignUpAction } from '../../redux/actions/userActions';
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-import { Box } from '@mui/material';
+import { CountryDropdown, RegionDropdown,CountryRegionData } from 'react-country-region-selector';
+import { Box, IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 const UserRegister = () => {
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
+    const [showPassword, setShowPassword] = useState(false);
+    // const [name, setName] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
     const [country, setCountry] = useState('');
@@ -22,6 +23,37 @@ const UserRegister = () => {
     const navigate = useNavigate();
     const dispatch= useDispatch();
 
+    const [values, setValues] = React.useState({
+        showPassword: false, 
+        password: '',
+       
+      });
+      
+
+    const [profileData, setProfileData]=useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+       
+
+    })
+
+    const handleInputChange = (e) => {
+        const { name, value, type, checked, options } = e.target;
+        if (type === 'checkbox') {
+          const selectedOptions = [...options].filter((option) => option.selected).map((option) => option.value);
+          setProfileData({ ...profileData, [name]: selectedOptions });
+        } else if (type === 'checkbox' && name === 'openForEmployment') {
+          setProfileData({ ...profileData, [name]: checked });
+        } else {
+          setProfileData({ ...profileData, [name]: value });
+        }
+        
+      };
+      const passwordsMatch = profileData.password === profileData.confirmPassword;
+     
+    
     
     const handleSubmit = (event, values, actions) => {
         event.preventDefault();
@@ -53,6 +85,34 @@ const UserRegister = () => {
     setRegion(val);
   }
 
+  // Email Input component
+  const [email, setEmail] = useState('');
+  const [isEmailValid, setIsEmailValid] = useState(true);
+
+  const handleEmailChange = (event) => {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+    // Email validation using a regular expression
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    setIsEmailValid(emailPattern.test(newEmail));
+  };
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+
 
     return (
       
@@ -73,7 +133,8 @@ const UserRegister = () => {
                                 className="form-control" 
                                 id="firstName" 
                                 label="First Name"
-                                onChange={(event) => setName(event.target.value)}
+                                // onChange={(event) => setName(event.target.value)}
+                                onChange={handleInputChange}
                                 required
                             /> 
                         </div>
@@ -87,7 +148,8 @@ const UserRegister = () => {
                                 className="form-control" 
                                 id="lastName" 
                                 label="Last Name"
-                                onChange={(event) => setName(event.target.value)}
+                                // onChange={(event) => setName(event.target.value)}
+                                onChange={handleInputChange}
                                 required
                             /> 
                         </div>
@@ -100,21 +162,46 @@ const UserRegister = () => {
                                 placeholder="Enter Email"
                                 className="form-control" 
                                 id="InputEmail1" 
-                                onChange={(event) => setEmail(event.target.value)}
+                                // onChange={(event) => setEmail(event.target.value)}
+                                onChange={handleEmailChange}
                                 required
-                            /> 
+                                />
+                                {!isEmailValid && (
+                                    <p style={{ color: 'red' }}>Please enter a valid email address.</p>
+                                  )}
+                            
                         </div>
                         <div className="mb-3 text-start">
                             <label htmlFor="InputPassword" className="form-label">
                                 <strong>Password</strong>
                             </label>
                             <input 
-                                type="password" 
+                                type={values.showPassword ? 'text' : 'password'}
+                                value={values.password}
                                 placeholder="Enter Password"
                                 className="form-control" 
                                 id="password" 
-                                onChange={(event) => setPassword(event.target.value)}
+                                // onChange={(event) => setPassword(event.target.value)}
+                                onChange={handleChange('password')}
                                 required
+
+                                
+                                endAdornment={
+                                    <InputAdornment>
+                                      <IconButton
+                                        size="small"
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                      >
+                                        {values.showPassword ? (
+                                          <VisibilityOff fontSize="small" />
+                                        ) : (
+                                          <Visibility fontSize="small" />
+                                        )}
+                                      </IconButton>
+                                    </InputAdornment>
+                                  }
                             />
                         </div>
                         <div className="mb-3 text-start">
@@ -122,14 +209,19 @@ const UserRegister = () => {
                                 <strong>Confirm Password</strong>
                             </label>
                             <input 
-                                type="password" 
+                                type={showPassword ? 'text':'password'} 
                                 placeholder="Confirm Password"
                                 className="form-control" 
                                 id="confirmpassword" 
-                                onChange={(event) => setPassword(event.target.value)}
+                                // onChange={(event) => setPassword(event.target.value)}
+                                onChange={handleInputChange}
                                 required
                             />
-                        </div>
+                            {passwordsMatch ? null :(
+                                <div className='text-danger'>Passwords do not Match!!</div>
+                            )}
+
+                 </div>
                         <div className="mb-3 text-start">
                             <label htmlFor="country" className="form-label">
                                 <strong>Country of Residence</strong>
@@ -147,6 +239,7 @@ const UserRegister = () => {
                             </label>
                             <RegionDropdown
                             sx={{mb:3}}
+                            country={country}
                             value={region}
                             onChange={(val)=>selectRegion(val)}
                             />
