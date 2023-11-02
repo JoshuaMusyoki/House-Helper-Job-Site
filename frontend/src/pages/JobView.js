@@ -32,11 +32,11 @@ const JobView = () => {
 
   const handleChangeCategory =(e) =>{
     setCat(e.target.value);
+  }
   return (
    <>
    <Box sx={{bgcolor: "#fafafa", minHeight:'100vh'}}>
     <Navbar />
-    <Header />
   
 
    <Container>
@@ -116,6 +116,6 @@ const JobView = () => {
    </>
   )
 }
-}
+
 
 export default JobView
