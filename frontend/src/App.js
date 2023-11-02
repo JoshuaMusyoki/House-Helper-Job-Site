@@ -25,11 +25,12 @@ import AboutUs from './pages/About/about';
 import FileUploadComponent from './pages/Profile/FileUploadComponent';
 import Jobs from './pages/Jobs';
 import JobPostForm from './pages/JobPosting';
-import ViewJobs from './pages/ViewJobs';
+// import ViewJobs from './pages/ViewJobs';
+import JobView from './pages/JobView';
 import DashCategory from './pages/Employer/DashCategory';
 import DashCreateCategory from './pages/Employer/DashCreateCategory';
 import DashCreateJob from './pages/Employer/DashCreateJob';
-// import DashCreateJob from './pages/Employer/DashCreateJob';
+
 
 const UserDashboardHOC=Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
@@ -38,7 +39,7 @@ const EmployerDashboardHOC=Layout(EmployerDashboard);
 const DashUsersHOC=Layout(DashUsers);
 const DashJobsHOC=Layout(DashJobs);
 const JobPostFormHOC= Layout(JobPostForm);
-const ViewJobsHOC= ViewJobs;
+const JobViewHOC= JobView;
 const DashCategoryHOC=Layout(DashCategory);
 const DashCreateCategoryHOC=Layout(DashCreateCategory);
 const DashCreateJobHOC=Layout(DashCreateJob);
@@ -78,7 +79,7 @@ const App=()=>{
    <Route path='*' element={<NotFound />}/> 
    <Route path='/Jobs' element={<Jobs />} />
    <Route path='/JobPosting' element={<EmployerRoutes><JobPostFormHOC /></EmployerRoutes>} />
-   <Route path='/ViewJobs' element={<UserRoutes><ViewJobsHOC /></UserRoutes>} />
+   <Route path='/ViewJobs' element={<UserRoutes><JobViewHOC /></UserRoutes>} />
    </Routes>
    </BrowserRouter>
       </ProSidebarProvider>
