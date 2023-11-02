@@ -16,6 +16,7 @@ const EmployerDashboard = () => {
                 <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
                     Dashboard
                 </Typography>
+                
                 <Stack
                     direction={{ xs: 'column', sm: 'row' }}
                     spacing={{ xs: 1, sm: 2, md: 4 }}
@@ -24,7 +25,7 @@ const EmployerDashboard = () => {
                     <StatComponent
                         value="45621"
                         icon={<SupervisorAccountIcon sx={{ color: "#fafafa", fontSize: 30 }} />}
-                        description="Administrators"
+                        description="Employers"
                         money=''
                     />
                     <StatComponent

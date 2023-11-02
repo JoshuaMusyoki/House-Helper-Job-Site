@@ -3,6 +3,7 @@ import SidebarAdm from './Sidebar';
 import { Box } from "@mui/material";
 import HeaderTop from './HeaderTop';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 const Layout=(Component)=>(({...props})=>{
     return(
         <>
@@ -17,7 +18,8 @@ const Layout=(Component)=>(({...props})=>{
             </Box>           
         </div>
         <Box sx={{width:"100%", bgcolor:'#002952'}}>
-                <Navbar />
+                {/* <Navbar /> */}
+                <Footer />
             </Box>
         </>
     )

@@ -26,7 +26,10 @@ import FileUploadComponent from './pages/Profile/FileUploadComponent';
 import Jobs from './pages/Jobs';
 import JobPostForm from './pages/JobPosting';
 import ViewJobs from './pages/ViewJobs';
-
+import DashCategory from './pages/Employer/DashCategory';
+import DashCreateCategory from './pages/Employer/DashCreateCategory';
+import DashCreateJob from './pages/Employer/DashCreateJob';
+// import DashCreateJob from './pages/Employer/DashCreateJob';
 
 const UserDashboardHOC=Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
@@ -36,6 +39,11 @@ const DashUsersHOC=Layout(DashUsers);
 const DashJobsHOC=Layout(DashJobs);
 const JobPostFormHOC= Layout(JobPostForm);
 const ViewJobsHOC= ViewJobs;
+const DashCategoryHOC=Layout(DashCategory);
+const DashCreateCategoryHOC=Layout(DashCreateCategory);
+const DashCreateJobHOC=Layout(DashCreateJob);
+
+
 
 const App=()=>{
   
@@ -61,6 +69,9 @@ const App=()=>{
     <Route path='/employer/dashboard' element={<EmployerRoutes><EmployerDashboardHOC /></EmployerRoutes>} />
     <Route path='/employer/users' element={<EmployerRoutes><DashUsersHOC /></EmployerRoutes>} />
     <Route path='/employer/jobs' element={<EmployerRoutes><DashJobsHOC /></EmployerRoutes>} />
+    <Route path='/employer/category' element={<EmployerRoutes><DashCategoryHOC /></EmployerRoutes>} />
+    <Route path='/employer/category/create' element={<EmployerRoutes><DashCreateCategoryHOC /></EmployerRoutes>} />
+    <Route path='/employer/create' element={<EmployerRoutes><DashCreateJobHOC/></EmployerRoutes>} />
     <Route path='/helper/dashboard' element={<UserRoutes><UserDashboardHOC /></UserRoutes>} />
     <Route path='/helper/jobs' element={<UserRoutes><UserJobsHistoryHOC /></UserRoutes>} />
     <Route path='/helper/info' element={<UserRoutes><UserInfoDashboardHOC /></UserRoutes>} />
