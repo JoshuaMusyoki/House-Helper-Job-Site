@@ -2,7 +2,7 @@ version: 2
 jobs:
   docker_backend_build:
     environment:
-      IMAGE_NAME: joshuamusyoki/t24-server
+      IMAGE_NAME: androidmerndev/t24-server
     docker:
     # circleci node image that contains binaries and tools required for the build.
       - image: cimg/node:10.19.0
@@ -20,7 +20,7 @@ jobs:
             docker image push $IMAGE_NAME:v1
   docker_frontend_build:
     environment:
-      IMAGE_NAME: joshuamusyoki/t24-client
+      IMAGE_NAME: androidmerndev/t24-client
     docker:
     # circleci node image that contains binaries and tools required for the build.
       - image: cimg/node:14.8.0
