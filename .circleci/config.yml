@@ -1,0 +1,45 @@
+version: 2
+jobs:
+  docker_backend_build:
+    environment:
+      IMAGE_NAME: joshuamusyoki/t24-server
+    docker:
+    # circleci node image that contains binaries and tools required for the build.
+      - image: cimg/node:10.19.0
+
+    steps:
+    # This allocates a new docker engine that is separate from the environment that is running our job.
+      - checkout
+      - setup_remote_docker
+      - deploy:
+          name: Build and Push to docker hub
+          command: |
+            cd server/
+            docker build -t $IMAGE_NAME:v1 .
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+            docker image push $IMAGE_NAME:v1
+  docker_frontend_build:
+    environment:
+      IMAGE_NAME: joshuamusyoki/t24-client
+    docker:
+    # circleci node image that contains binaries and tools required for the build.
+      - image: cimg/node:14.8.0
+
+    steps:
+    # This allocates a new docker engine that is separate from the environment that is running our job.
+      - checkout
+      - setup_remote_docker
+
+      - deploy:
+          name: Build and Push to docker hub
+          command: |
+            cd client/
+            docker build -t $IMAGE_NAME:v1 .
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+            docker image push $IMAGE_NAME:v1
+workflows:
+  version: 2
+  build_docker_image:
+    jobs:
+      - docker_backend_build
+      - docker_frontend_build
