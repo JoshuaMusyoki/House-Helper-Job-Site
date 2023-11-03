@@ -1,0 +1,27 @@
+---
+certbot_site_name:
+# This is for the fully qualified domain name of the website lets encrypt SS
+domain1:t24.live
+domain2:www.t24.live
+# This is the package name of the certbot client. 
+certbot_package: python3-certbot-nginx
+# Name of the Certbot plugin.
+certbot_plugin: nginx
+# A valid email address.
+certbot_mail_address: musyokijoxhua@gmail.com
+
+package1: [
+    apt-transport-https,
+    ca-certificates,
+    curl,
+    software-properties-common,
+    gnupg,
+    lsb-release
+]
+package2: [
+    docker-ce,
+    docker-ce-cli,
+    containerd.io
+]
+docker_compose_version: 1.29.1
+

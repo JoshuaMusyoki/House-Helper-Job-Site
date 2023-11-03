@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  become: true
+  become_user: root
+  vars_files:
+    - vars/define_vars.yml
+
+  tasks:
+  - name : Installing Python Package
+    apt: name=python3 update_cache=yes state=latest
+
+  - name : Installing Let's Encrypt Package
+    apt: name={{ certbot_package }} update_cache=yes state=latest
+
+  - name: Create and Install Certbot Using Plugin
+    shell: certbot --{{ certbot_plugin }} -d {{ certbot_site_name }} -m {{ certbot_mail_address }}
+
+
+  - name: Set Letsencrypt Cronjob for Certificate Auto Renewal
+    cron: name=letsencrypt_renewal special_time=monthly job="/usr/bin/certbot renew"
+    when: ansible_facts['os_family'] == "Debian"
