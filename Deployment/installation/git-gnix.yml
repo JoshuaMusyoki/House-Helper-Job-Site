@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Update the repository
+      apt_repository:
+        repo: 'ppa:git-core/ppa'
+        state: present
+    - name: Install git
+      apt:
+        name: git
+        state: present
+        update_cache: yes
+    - name: Nginx installation 
+      apt:
+        name: nginx
+        state: latest
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
