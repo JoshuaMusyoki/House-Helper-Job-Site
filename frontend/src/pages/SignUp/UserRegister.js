@@ -51,10 +51,7 @@ const UserRegister = () => {
         }
         
       };
-      const passwordsMatch = profileData.password === profileData.confirmPassword;
-     
-    
-    
+      const passwordsMatch = profileData.password === profileData.confirmPassword;    
     const handleSubmit = (event, values, actions) => {
         event.preventDefault();
         dispatch(userSignUpAction(values))
@@ -122,7 +119,7 @@ const UserRegister = () => {
             <div className="d-flex justify-content-center align-items-center text-center vh-100" style= {{backgroundImage : "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))"}}>
                 <div className="bg-white p-3 rounded" style={{width : '100%'}}>
                     <h2 className='mb-3 text-primary'>Register</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form method='POST' onSubmit={handleSubmit} action='register'>
                         <div className="mb-3 text-start">
                             <label htmlFor="exampleInputEmail1" className="form-label">
                                 <strong >First Name</strong>
