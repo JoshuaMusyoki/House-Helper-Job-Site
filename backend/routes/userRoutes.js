@@ -1,11 +1,16 @@
 const express = require('express');
 const router=express.Router();
+
+const signUpController = require('../controllers/signUpController');
+
 const {allUsers, singleUser, editUser, deleteUser, createUserJobHistory } = require('../controllers/userController');
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
 
 
 //user Routes
 
+// Register routes
+router.post('/register', signUpController.registerUser)
 //api/allUsers
 router.get('/allUsers', isAuthenticated,isAdmin, allUsers);
 

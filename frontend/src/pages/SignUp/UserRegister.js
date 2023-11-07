@@ -23,6 +23,36 @@ const UserRegister = () => {
     const navigate = useNavigate();
     const dispatch= useDispatch();
 
+    const register =(event, values, actions)=>{
+      const data = {
+         firstName:'',
+        lastName:'',
+        email: '',
+        country: '', 
+        region:'',
+        password:''
+      }
+      event.preventDefault();
+      dispatch(userSignUpAction(values))
+      // event.resetForm(actions)
+      // axios.post('/api/signup', {name, email, password})
+      .then(result => {
+          console.log(result);
+          if(result.data === "Already registered"){
+              alert("E-mail already registered! Please Login to proceed.");
+              navigate('/login');
+          }
+          else{
+              alert("Registered successfully! Please Login to proceed.")
+              navigate('/Login');
+          }
+          
+      })
+      
+      .catch(err => console.log(err));
+
+    }
+
     const [values, setValues] = React.useState({
         showPassword: false, 
         password: '',
@@ -52,27 +82,7 @@ const UserRegister = () => {
         
       };
       const passwordsMatch = profileData.password === profileData.confirmPassword;    
-    const handleSubmit = (event, values, actions) => {
-        event.preventDefault();
-        dispatch(userSignUpAction(values))
-        
-        // axios.post('/api/signup', {name, email, password})
-        .then(result => {
-            console.log(result);
-            if(result.data === "Already registered"){
-                alert("E-mail already registered! Please Login to proceed.");
-                navigate('/login');
-            }
-            else{
-                alert("Registered successfully! Please Login to proceed.")
-                navigate('/Login');
-            }
-            
-        })
-        
-        .catch(err => console.log(err));
-        // actions.resetForm();
-    }
+   
    //Select country 
    const selectCountry = (val) => {
     setCountry(val);
@@ -119,7 +129,7 @@ const UserRegister = () => {
             <div className="d-flex justify-content-center align-items-center text-center vh-100" style= {{backgroundImage : "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))"}}>
                 <div className="bg-white p-3 rounded" style={{width : '100%'}}>
                     <h2 className='mb-3 text-primary'>Register</h2>
-                    <form method='POST' onSubmit={handleSubmit} action='register'>
+                    <form method='POST' onSubmit={register} action='register'>
                         <div className="mb-3 text-start">
                             <label htmlFor="exampleInputEmail1" className="form-label">
                                 <strong >First Name</strong>
