@@ -52,17 +52,20 @@ export const userReducerSignIn=(state={}, action)=>{
 export const userReducerSignUp=(state={}, action)=>{
     switch (action.type) {
         case USER_SIGNUP_REQUEST:
-            return {loading:true, userInfo:null, isAuthenticated:false}
+            // return {loading:true, userInfo:null, isAuthenticated:false}
+            return {loading:true}
             
         case USER_SIGNUP_SUCCESS:
             return{
-                loading:true,
-                userInfo:action.payload,
-                isAuthenticated:true
+                loading:false,
+                userSignUp:action.payload
             }
 
         case USER_SIGNUP_FAIL:
-            return{loading:true, userInfo:null, isAuthenticated:false, error:action.payload}
+            return{
+                loading:false, 
+               error:action.payload
+            }
         
         case USER_SIGNUP_RESET:
             return {}

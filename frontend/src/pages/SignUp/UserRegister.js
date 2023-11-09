@@ -7,7 +7,7 @@ import Navbar from '../../components/Navbar';
 import SHeader from '../../components/SignUpComponents/SHeader';
 import Footer from '../../components/Footer';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userSignUpAction } from '../../redux/actions/userActions';
 import { CountryDropdown, RegionDropdown,CountryRegionData } from 'react-country-region-selector';
 import { Box, IconButton, InputAdornment } from '@mui/material';
@@ -22,6 +22,7 @@ const UserRegister = () => {
     const [region, setRegion] = useState('');
     const navigate = useNavigate();
     const dispatch= useDispatch();
+    const {userSignUp} =useSelector(state => state.signUp);
 
     const register =(event, values, actions)=>{
       const data = {
