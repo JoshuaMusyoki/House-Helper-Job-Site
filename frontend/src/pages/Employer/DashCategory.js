@@ -53,7 +53,7 @@ const DashCategory = () => {
             width: 200,
             renderCell: (values) => (
                 <Box sx={{ display: "flex", justifyContent: "space-between", width: "170px" }}>
-                    <Button variant="contained"><Link style={{ color: "white", textDecoration: "none" }} to={`/admin/edit/user/${values.row._id}`}>Edit</Link></ Button>
+                    <Button variant="contained"><Link style={{ color: "white", textDecoration: "none" }} to={`/employer/edit/user/${values.row._id}`}>Edit</Link></ Button>
                     < Button onClick={(e) => deleteJobCategoryById(e, values.row._id)} variant="contained" color="error">Delete</ Button>
                 </Box>
             
@@ -70,7 +70,7 @@ const DashCategory = () => {
                 Jobs category
             </Typography>
             <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-                <Button variant="contained" color="success" startIcon={<AddIcon />}><Link style={{ color: "white", textDecoration: "none" }} to='/admin/category/create'>Create category</Link></ Button>
+                <Button variant="contained" color="success" startIcon={<AddIcon />}><Link style={{ color: "white", textDecoration: "none" }} to='/employer/category/create'>Create category</Link></ Button>
             </Box>
             <Paper sx={{ bgcolor: "secondary.midNightBlue" }} >
 

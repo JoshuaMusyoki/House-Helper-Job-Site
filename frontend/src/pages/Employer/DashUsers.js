@@ -57,7 +57,7 @@ const DashUsers = () => {
 
             renderCell: (values)=>(
                 <Box sx={{ display: "flex", justifyContent: "space-between", width: "170px" }}>
-                    <Button variant="contained"><Link style={{ color: "white", textDecoration: "none" }} to={`/admin/edit/user/${values.row._id}`}>Edit</Link></ Button>
+                    <Button variant="contained"><Link style={{ color: "white", textDecoration: "none" }} to={`/employer/edit/user/${values.row._id}`}>Edit</Link></ Button>
                     < Button onClick={(e) => deleteUserById(e, values.row._id)} variant="contained" color="error">Delete</ Button>
                 </Box>
             )
