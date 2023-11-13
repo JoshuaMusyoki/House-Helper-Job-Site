@@ -4,12 +4,18 @@ import {
       FormControlLabel, 
       Grid, MenuItem, 
       Paper, 
-      Rating, 
+      Chip,
+      InputAdornment, 
+      Slider, 
       TextField, 
       Typography, 
-      makeStyles } from "@mui/material";
+      makeStyles } from "@material-ui/core";
 import { useContext, useState } from "react";
 import { CheckBox } from "@mui/icons-material";
+import Rating from "@material-ui/lab/Rating";
+import Pagination  from "@material-ui/lab/Rating";
+import SearchIcon from "@material-ui/icons/Search";
+import FilterListIcon from "@material-ui/icons/Filter";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import axios from "axios";
@@ -321,7 +327,7 @@ const useStyles = makeStyles((theme) =>({
                     style={{ border: "1px solid #D1D1D1", borderRadius: "5px" }}
                   >
                     <Grid item>
-                      <Checkbox
+                      <CheckBox
                         name="salary"
                         checked={searchOptions.sort.salary.status}
                         onChange={(event) =>
