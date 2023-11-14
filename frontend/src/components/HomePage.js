@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
      Button,
       FormControlLabel, 
@@ -9,22 +9,30 @@ import {
       Slider, 
       TextField, 
       Typography, 
-      makeStyles } from "@material-ui/core";
+       } from "@material-ui/core";
+
 import { useContext, useState } from "react";
 import { CheckBox } from "@mui/icons-material";
-import Rating from "@material-ui/lab/Rating";
-import Pagination  from "@material-ui/lab/Rating";
+// import { Rating } from "@mui/material/Rating";
+// import Pagination  from "@material-ui/lab/Rating";
 import SearchIcon from "@material-ui/icons/Search";
 import FilterListIcon from "@material-ui/icons/Filter";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import axios from "axios";
 
+import apiList from '../lib/apiList';
+import {userType} from '../lib/isAuth';
+import {SetPopupContext} from '../App';
+import { IconButton, Modal, Rating } from "@mui/material";
 
-const useStyles = makeStyles((theme) =>({
-    body: {
-        height: "inherit",
-      },
+
+
+const useStyles =((theme) =>({
+    body:{
+      height: "inherit",
+    },       
+     
       button: {
         width: "100%",
         height: "100%",
@@ -93,6 +101,7 @@ const useStyles = makeStyles((theme) =>({
       const deadline = new Date(job.deadline).toLocaleDateString();
     
       return (
+        
         <Paper className={classes.jobTileOuter} elevation={3}>
           <Grid container>
             <Grid container item xs={9} spacing={1} direction="column">
@@ -221,7 +230,7 @@ const useStyles = makeStyles((theme) =>({
                   <Grid item>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckBox
                           name="partTime"
                           checked={searchOptions.jobType.partTime}
                           onChange={(event) => {
@@ -241,7 +250,7 @@ const useStyles = makeStyles((theme) =>({
                   <Grid item>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckBox
                           name="wfh"
                           checked={searchOptions.jobType.wfh}
                           onChange={(event) => {
@@ -383,7 +392,7 @@ const useStyles = makeStyles((theme) =>({
                     style={{ border: "1px solid #D1D1D1", borderRadius: "5px" }}
                   >
                     <Grid item>
-                      <Checkbox
+                      <CheckBox
                         name="duration"
                         checked={searchOptions.sort.duration.status}
                         onChange={(event) =>
@@ -439,7 +448,7 @@ const useStyles = makeStyles((theme) =>({
                     style={{ border: "1px solid #D1D1D1", borderRadius: "5px" }}
                   >
                     <Grid item>
-                      <Checkbox
+                      <CheckBox
                         name="rating"
                         checked={searchOptions.sort.rating.status}
                         onChange={(event) =>

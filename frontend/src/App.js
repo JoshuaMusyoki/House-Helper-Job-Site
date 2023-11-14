@@ -4,7 +4,7 @@ import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline, Grid, ThemeProvider } from '@mui/material';
 import { theme } from './theme';
 import Login from './pages/Login';
 import UserDashboard from './pages/user/UserDashboard';
@@ -30,6 +30,10 @@ import JobView from './pages/JobView';
 import DashCategory from './pages/Employer/DashCategory';
 import DashCreateCategory from './pages/Employer/DashCreateCategory';
 import DashCreateJob from './pages/Employer/DashCreateJob';
+import { createContext, useState } from 'react';
+import Navbar from './components/Navbar';
+import HomePage from './components/HomePage';
+import MessagePopup from './lib/MessagePopup';
 
 
 const UserDashboardHOC=Layout(UserDashboard);
@@ -44,10 +48,27 @@ const DashCategoryHOC=Layout(DashCategory);
 const DashCreateCategoryHOC=Layout(DashCreateCategory);
 const DashCreateJobHOC=Layout(DashCreateJob);
 
-
+const useStyles = ((theme)=>({
+  body:{
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "98vh",
+    paddingTop: "64px",
+    boxSizing: "border-box",
+    width: "100%",
+}
+}));
+export const SetPopupContext = createContext();
 
 const App=()=>{
-  
+  const classes =useStyles();
+  const [popup, setPopup] = useState({
+    open:false,
+    severity:"",
+    message:"",
+  });
 
   return(
     <>
@@ -56,8 +77,15 @@ const App=()=>{
       <CssBaseline/>
       <ProSidebarProvider>
       <BrowserRouter>
+      <SetPopupContext.Provider value={setPopup}>
+        <Grid container direction="column">
+          <Grid item xs>
+            <Navbar />
+          </Grid>
+        <Grid item className={classes.body}>
    <Routes>
-    <Route path='/' element={<Home/>} />
+    {/* <Route path='/' element={<Home/>} /> */}
+    <Route path='/' element={<HomePage />} />
     <Route path='/AboutUs' element={<AboutUs/>} />
     <Route path='/search/location/:location' element={<Home/>} />
     <Route path='/search/:keyword' element={<Home/>} />
@@ -81,11 +109,24 @@ const App=()=>{
    <Route path='/JobPosting' element={<EmployerRoutes><JobPostFormHOC /></EmployerRoutes>} />
    <Route path='/ViewJobs' element={<UserRoutes><JobViewHOC /></UserRoutes>} />
    </Routes>
+   </Grid>
+   </Grid>
+   <MessagePopup
+   setOpen={(status)=>
+    setPopup({
+      ...popup,
+      open:status,
+    })
+  }
+  severity={popup.severity}
+  message={popup.message}
+   />
+   </SetPopupContext.Provider>
    </BrowserRouter>
       </ProSidebarProvider>
     
     </ThemeProvider>
     </>
-  )
+  );
 }
 export default App;
