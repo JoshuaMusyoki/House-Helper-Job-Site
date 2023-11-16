@@ -19,12 +19,12 @@ import { userType } from '../lib/isAuth';
     width: "100%",
     height: "100%",
   });
-  const StyledJobTileOuter = styled('div')({
+  const StyledJobTileOuter = styled.div`
     padding: '30px',
     margin: '20px 0',
     boxSizing: 'border-box',
     width: '100%',
-  });
+  `
 
   const StyledPopDialog = styled(Dialog)({
     height: "100%",
@@ -678,6 +678,7 @@ const HomePage = (props) =>{
       <FilterPopup 
       open={filterOpen}
       searchOptions={searchOptions}
+      setSearchOptions={setSearchOptions}
       handleClose={()=>setFilterOpen(false)}
       getData={()=>{
         getData();
