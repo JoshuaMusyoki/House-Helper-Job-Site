@@ -34,6 +34,7 @@ import { createContext, useState } from 'react';
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import MessagePopup from './lib/MessagePopup';
+import {  styled } from '@mui/styles';
 
 
 const UserDashboardHOC=Layout(UserDashboard);
@@ -48,22 +49,24 @@ const DashCategoryHOC=Layout(DashCategory);
 const DashCreateCategoryHOC=Layout(DashCreateCategory);
 const DashCreateJobHOC=Layout(DashCreateJob);
 
-const useStyles = ((theme)=>({
-  body:{
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "98vh",
-    paddingTop: "64px",
-    boxSizing: "border-box",
-    width: "100%",
-}
-}));
+
+// const styles = styled('div')({
+//   display: "flex",
+//   flexDirection: "column",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   minHeight: "98vh",
+//   paddingTop: "64px",
+//   boxSizing: "border-box",
+//   width: "100%",
+// });
+// const useStyles = styled('div')(styles);
+
 export const SetPopupContext = createContext();
 
 const App=()=>{
-  const classes =useStyles();
+  // const classes =useStyles;
+  
   const [popup, setPopup] = useState({
     open:false,
     severity:"",
@@ -82,7 +85,7 @@ const App=()=>{
           <Grid item xs>
             <Navbar />
           </Grid>
-        <Grid item className={classes.body}>
+        <Grid item >
    <Routes>
     {/* <Route path='/' element={<Home/>} /> */}
     <Route path='/' element={<HomePage />} />
